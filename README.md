@@ -37,7 +37,7 @@ python things you're gonna need(for now, more later):
     MySQLdb gzip, argparse, ConfigParser
 
 
-
+screenshot: http://pronto185.com/screens/output.now.with.bold.png
 atm run it as:
     ./sshrank.py -f on
 
