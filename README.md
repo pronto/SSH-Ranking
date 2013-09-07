@@ -25,7 +25,7 @@ to install set up mysql, create a user/pw for the project
 add a database called "db_sshrank"
 then run this mysql command to make the table 
 
-CREATE TABLE ips_tbl( ip VARCHAR(20) NOT NULL, RDNS TEXT NOT NULL, USER TEXT NOT NULL, datetime DATETIME NOT NULL);
+CREATE TABLE ips_tbl( ip VARCHAR(20) NOT NULL, USER TEXT NOT NULL, datetime DATETIME NOT NULL);
 
 
 edit the config.ini for the script

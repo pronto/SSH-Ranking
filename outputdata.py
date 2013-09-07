@@ -36,4 +36,13 @@ for a in data:
     print "\t",
     for b in users:
         print "\033[1m"+b[0] + "\033[0m:" + str(b[1]) + ", ",
-    print "\n "
+    print ""
+    #check for rdns:
+    x.execute("""SELECT * FROM rdns_tbl WHERE ip='%s'""" % a[0])
+    rdnsthings=x.fetchall()
+    if rdnsthings:
+        if rdnsthings[0][1] != 'NO DNS HERE':
+            print "\trDNS: \033[1m" + rdnsthings[0][1] +"\033[0m",
+            print "and the dns is: \033[1m" + rdnsthings[0][2] + "\033[0m",
+            print "last updated on \033[1m"+  str(rdnsthings[0][3]) + "\033[0m"
+    print ""

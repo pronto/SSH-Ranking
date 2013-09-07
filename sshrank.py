@@ -39,7 +39,6 @@ def datafromline(line,year):
     date=datetime.strptime(date,"%b %d %Y %H:%M:%S")
     date=date.strftime('%Y-%m-%d %H:%M:%S')
     returnlist.append(l[12])
-    returnlist.append("temp.rdns.not.real.bro")
     returnlist.append(l[10])
     returnlist.append(date)
     return returnlist
@@ -48,7 +47,7 @@ def insertsql(i):
     #give this the info from datafromeline
     con =MySQLdb.connect(mysqlserv,mysqluser,mysqlpass,"db_sshrank")
     x=con.cursor()
-    x.execute("""INSERT INTO ips_tbl (ip,RDNS,USER,datetime) VALUES (%s, %s, %s, %s) """,(i[0],i[1],i[2],i[3]))
+    x.execute("""INSERT INTO ips_tbl (ip,USER,datetime) VALUES (%s, %s, %s) """,(i[0],i[1],i[2]))
     con.commit()
     con.close()
 
@@ -71,8 +70,8 @@ if argres.firstrun == "on":
     #i'll deal with gzip'd
     #and for this i'll just be doing one auth.log
     #disco dance!
-    start_time = time.time()
     for afile in log_list:
+        start_time = time.time()
         for line in openfile(afile):
             if "Failed password for invalid user" in line:
                 #con = MySQLdb.connect(host=MySQLdb
