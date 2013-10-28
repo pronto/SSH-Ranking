@@ -25,8 +25,13 @@ to install set up mysql, create a user/pw for the project
 add a database called "db_sshrank"
 then run this mysql command to make the table 
 
-CREATE TABLE ips_tbl( ip VARCHAR(20) NOT NULL, USER TEXT NOT NULL, datetime DATETIME NOT NULL);
-
+Create Table: CREATE TABLE `ips_alc2` (
+  `ip` varchar(20) NOT NULL,
+  `user` varchar(20) DEFAULT NULL,
+  `datetime` datetime NOT NULL,
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`pk`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
 
 edit the config.ini for the script
 
@@ -36,6 +41,7 @@ edit the config.ini for the script
 python things you're gonna need(for now, more later):
     MySQLdb gzip, argparse, ConfigParser
     flask-mysql
+sql alchemy
 
 screenshot: http://pronto185.com/screens/output.now.with.bold.png
 atm run it as:
