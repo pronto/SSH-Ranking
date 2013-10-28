@@ -24,7 +24,7 @@ watch for new things               NO
 to install set up mysql, create a user/pw for the project
 add a database called "db_sshrank"
 then run this mysql command to make the table 
-
+<pre>
 Create Table: CREATE TABLE `ips_alc2` (
   `ip` varchar(20) NOT NULL,
   `user` varchar(20) DEFAULT NULL,
@@ -32,7 +32,7 @@ Create Table: CREATE TABLE `ips_alc2` (
   `pk` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`pk`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1
-
+</pre>
 edit the config.ini for the script
 
 
