@@ -12,31 +12,7 @@ user_cnt=int(par.get("sshrank","user_cnt"))
 total_ip=par.get("sshrank","total_ip")
 stats_ip=par.get("sshrank","stats_ip")
 
-
-import code
-import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func
-Base = declarative_base()
-eng = sqlalchemy.create_engine('mysql://sshrank:blargpass@localhost')
-eng.execute("USE db_sshrank")
-eng.execute("select 1").scalar()
-Session =sqlalchemy.orm.sessionmaker(bind=eng)
-Session = Session()
-class ips(Base):
-    __tablename__ = 'ips_alc'
-    ip = Column(VARCHAR)
-    USER = Column(TEXT)
-    datetime = Column(DATETIME)
-    pk = Column(Integer,Sequence('pk'), primary_key=True)
-
-    def __init__(self,ip,USER,datetime):
-        self.ip = ip
-        self.user = USER
-        self.date = datetime
-
-    def __repr__(self):
-        return "<ip('%s','%s', '%s')>" % (self.ip, self.user, self.date)
+from sqlclass import *
 
 uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
 
