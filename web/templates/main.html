@@ -1,27 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
-<code>
-    oh hi || <hr>
+            <head>
+                <title>ssh-rank!</title>
+                <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+            </head>
+
+            blarg <br>
+            <div id="maincontent">
     <a href="https://github.com/pronto/SSH-Ranking">more info on the gihub</a>
-
+    <h2>SSH-ranking!</h2>
     <ol>
     {% autoescape false %}
     {% for ip in uniq_ips %}
     {% set rowip = ip[0] %}
-    <li><b>{{ ip[0] }}</b> attempted <b>{{ ip[1] }}</b> times </li>
+    <li class="items text">
+    <p><b>{{ ip[0] }}</b> attempted <b>{{ ip[1] }}</b> times </br>
     with users:
     {% for user in lollist %}
         {% if user[0][0] == rowip %}
-            <b>{{ user[1] }}</b>:<b>{{ user[2] }}</b>
-        {% endif %}
+            <b>{{ user[1] }}</b>:{{ user[2] }}
+            {% endif %}
+            {% endfor %}
+            </p>
+            </li>
     {% endfor %}
-
-    </br>
-    </br>
-    {% endfor %}
-
     <hr>
     {% endautoescape %}
 </ol>
 <hr>
 
-
+</div>

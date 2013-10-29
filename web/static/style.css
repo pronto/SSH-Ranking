@@ -1,0 +1,43 @@
+body {font-family: Verdana, Arial, sans-serif;}
+
+ body, p, li {
+     font-size: 13px;
+ }
+
+ h1, h2 {
+     font-weight: bold;
+     font-size: 15px;
+ }
+
+ h2 .date {
+     font-weight: normal;
+     font-size: 13px;
+ }
+
+ #menu li a {
+     font-weight: bold;
+     font-size: 11px;
+ } 
+
+
+ div#maincontent {
+     float: center;
+     width: 100%;
+ }
+
+p.code {
+        background: gray;
+            margin: 2px; padding: 12px 0 22px 12px; width: 80%; overflow: auto; color: #FFF;} 
+
+
+ol.assis, ol.dir, .items {
+        background: gray;
+        padding-bottom:1px;
+        padding-top:0px;
+        width:70%;
+        } 
+
+ol p {
+    color: #e8e8e8;
+
+}
