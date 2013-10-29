@@ -1,8 +1,8 @@
 #!/usr/bin/env python2.6
-import sys,os,pwd,argparse,MySQLdb,gzip,time
+import sys,os,pwd,argparse,gzip,time
 from datetime import datetime
 from multiprocessing import Process
-
+from sqlclass import *
 try:
     from ConfigParser import SafeConfigParser
 except ImportError as exc:
@@ -43,13 +43,18 @@ def datafromline(line,year):
     returnlist.append(date)
     return returnlist
 
-def insertsql(i):
+#def insertsql(i):
     #give this the info from datafromeline
-    con =MySQLdb.connect(mysqlserv,mysqluser,mysqlpass,"db_sshrank")
-    x=con.cursor()
-    x.execute("""INSERT INTO ips_tbl (ip,USER,datetime) VALUES (%s, %s, %s) """,(i[0],i[1],i[2]))
-    con.commit()
-    con.close()
+    #con =MySQLdb.connect(mysqlserv,mysqluser,mysqlpass,"db_sshrank")
+    #x=con.cursor()
+    #x.execute("""INSERT INTO ips_alc (ip,USER,datetime) VALUES (%s, %s, %s) """,(i[0],i[1],i[2]))
+    #con.commit()
+    #con.close()
+
+def insertsql(i):
+    user=ips(i[0],i[1],i[2])
+    Session.add(user)
+    Session.commit()
 
 def openfile(logfile):
     if 'gz' in logfile:

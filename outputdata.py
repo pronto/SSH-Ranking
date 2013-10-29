@@ -22,8 +22,8 @@ for a in uniq_ips:
     date=date.strftime('%Y-%m-%d %H:%M:%S')
     print "\033[1m"+a[0] + "\033[0m attempted \033[1m" + str(a[1]) + "\033[0m Last Attempt: \033[1m"+ date+" \033[0mtimes with users: "
     print '\t',
-    users = Session.query(ips.USER,func.count(ips.USER).label('total')).\
-            filter(ips.ip==str(a[0])).group_by(ips.USER).order_by('total DESC').limit(user_cnt).all()
+    users = Session.query(ips.user,func.count(ips.user).label('total')).\
+            filter(ips.ip==str(a[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
     for b in users:
         print "\033[1m"+b[0] + "\033[0m:" + str(b[1]) + ", ",
     print ' \n'
