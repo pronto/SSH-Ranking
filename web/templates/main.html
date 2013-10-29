@@ -1,14 +1,27 @@
 
 <code>
-oh hi 
-<hr>
+    oh hi || <hr>
     <a href="https://github.com/pronto/SSH-Ranking">more info on the gihub</a>
 
-    <hr>omgifthisworkswtf<hr>
-
+    <ol>
     {% autoescape false %}
-    {% for cray in craylist %}
-    {{ cray }}<br>
+    {% for ip in uniq_ips %}
+    {% set rowip = ip[0] %}
+    <li><b>{{ ip[0] }}</b> attempted <b>{{ ip[1] }}</b> times </li>
+    with users:
+    {% for user in lollist %}
+        {% if user[0][0] == rowip %}
+            <b>{{ user[1] }}</b>:<b>{{ user[2] }}</b>
+        {% endif %}
     {% endfor %}
-    {% endautoescape %}
+
+    </br>
+    </br>
+    {% endfor %}
+
     <hr>
+    {% endautoescape %}
+</ol>
+<hr>
+
+
