@@ -1,8 +1,9 @@
-body {font-family: Verdana, Arial, sans-serif;}
+body {font-family: Verdana, Arial, sans-serif;
+background:#2E9AFE;
+padding-left:15px;
 
- body, p, li {
-     font-size: 13px;
- }
+}
+
 
  h1, h2 {
      font-weight: bold;
@@ -14,30 +15,84 @@ body {font-family: Verdana, Arial, sans-serif;}
      font-size: 13px;
  }
 
- #menu li a {
-     font-weight: bold;
-     font-size: 11px;
- } 
-
-
- div#maincontent {
-     float: center;
-     width: 100%;
- }
 
 p.code {
         background: gray;
-            margin: 2px; padding: 12px 0 22px 12px; width: 80%; overflow: auto; color: #FFF;} 
-
-
-ol.assis, ol.dir, .items {
-        background: gray;
-        padding-bottom:1px;
-        padding-top:0px;
-        width:70%;
+        margin: 2px; padding: 12px 0 22px 12px;
+        width: 10%;
+        overflow: auto;
+        color: #000000;
+        border-style:solid;
+        border-width:10px;
         } 
 
-ol p {
-    color: #e8e8e8;
-
+ol{
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    color:black;
 }
+
+
+ol ol{
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+    color:black;
+}
+
+.rounded-list a{
+            position: relative;
+            display: block;
+            padding: .4em .4em .4em 2em;
+            *padding: .4em;
+            margin: .5em 0;
+            background: #ddd;
+            color: #000000;
+            text-decoration: none;
+            -moz-border-radius: .3em;
+            -webkit-border-radius: .3em;
+            border-radius: .3em;
+            -webkit-transition: all .3s ease-out;
+            -moz-transition: all .3s ease-out;
+            -ms-transition: all .3s ease-out;
+            -o-transition: all .3s ease-out;
+            transition: all .3s ease-out;   
+        width:45%;
+        }
+.rounded-list a:hover{
+    background: #eee;
+}
+
+.rounded-list a:hover:before{
+    transform: rotate(360deg);  
+}
+
+.rounded-list a:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute; 
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+}
+ol p {
+    color: black;
+    background: #A9E2F3;
+    padding-left:10px;
+    width:59%;
+    display: block;
+ border-radius: 10px;
+}
+
