@@ -12,22 +12,23 @@
     <a href="https://github.com/pronto/SSH-Ranking">more info on the gihub</a>
     <h2>SSH-ranking!</h2>
     <ol>
-    {% autoescape false %}
-    {% for ip in uniq_ips %}
-    {% set rowip = ip[0] %}
+    {% autoescape false -%}
+    {% for ip in uniq_ips -%}
+    {% set rowip = ip[0] -%}
     <li class="items text">
     <p><b>{{ ip[0] }}</b> attempted <b>{{ ip[1] }}</b> times </br>
     with users:
-    {% for user in lollist %}
-        {% if user[0][0] == rowip %}
+    {% for user in lollist -%}
+        {% if user[0][0] == rowip -%}
             <b>{{ user[1] }}</b>:{{ user[2] }}
-            {% endif %}
-            {% endfor %}
+            {% endif -%}
+            {% endfor -%}
+            <br>i
             </p>
             </li>
-    {% endfor %}
+    {% endfor -%}
     <hr>
-    {% endautoescape %}
+    {% endautoescape -%}
 </ol>
 <hr>
 
