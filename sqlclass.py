@@ -11,18 +11,41 @@ Session = Session()
 
 
 class ips(Base):
-    __tablename__ = 'ips_alc'
+    __tablename__ = 'ips_alc2'
     ip = Column(VARCHAR)
-    USER = Column(TEXT)
+    user = Column(TEXT)
     datetime = Column(DATETIME)
     pk = Column(Integer,Sequence('pk'), primary_key=True)
 
-    def __init__(self,ip,USER,datetime):
+    def __init__(self,ip,user,dtime):
         self.ip = ip
-        self.user = USER
-        self.date = datetime
+        self.user = user
+        self.datetime = dtime
 
     def __repr__(self):
-        return "<ip('%s','%s', '%s')>" % (self.ip, self.user, self.date)
+        return "<ip('%s','%s', '%s')>" % (self.ip, self.user, self.dtime)
 
 
+class rdns(Base):
+    __tablename__= 'rdns_tbl'
+    pk = Column(Integer,Sequence('pk'), primary_key=True)
+    ip = Column(VARCHAR)
+    rdns = Column(TEXT)
+    good = Column(VARCHAR)
+    datetime = Column(DATETIME)
+
+    def __init__(self,ip,rdns,good,dtime):
+        self.ip = ip
+        self.rdns = rdns
+        self.good = good
+        self.datetime = dtime
+
+    def __repr__(self):
+        return "<rdns('%s','%s','%s','%s')>" % (self.ip, self.rdns, self.good, self.dtime)
+
+
+
+#from sqlclass import *
+#a=ips('127.0.0.1', 'jkldj', '2013-10-28 15:10:51')
+#Session.add(a)
+#Session.commit()
