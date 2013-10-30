@@ -1,4 +1,5 @@
 #classes
+
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func
@@ -14,13 +15,13 @@ class ips(Base):
     __tablename__ = 'ips_alc2'
     ip = Column(VARCHAR)
     user = Column(TEXT)
-    datetime = Column(DATETIME)
+    dtime = Column(DATETIME)
     pk = Column(Integer,Sequence('pk'), primary_key=True)
 
     def __init__(self,ip,user,dtime):
         self.ip = ip
         self.user = user
-        self.datetime = dtime
+        self.dtime = dtime
 
     def __repr__(self):
         return "<ip('%s','%s', '%s')>" % (self.ip, self.user, self.dtime)
@@ -32,13 +33,13 @@ class rdns(Base):
     ip = Column(VARCHAR)
     rdns = Column(TEXT)
     good = Column(VARCHAR)
-    datetime = Column(DATETIME)
+    dtime = Column(DATETIME)
 
     def __init__(self,ip,rdns,good,dtime):
         self.ip = ip
         self.rdns = rdns
         self.good = good
-        self.datetime = dtime
+        self.dtime = dtime
 
     def __repr__(self):
         return "<rdns('%s','%s','%s','%s')>" % (self.ip, self.rdns, self.good, self.dtime)
