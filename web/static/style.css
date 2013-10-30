@@ -7,25 +7,27 @@ padding-left:15px;
 
  h1, h2 {
      font-weight: bold;
-     font-size: 15px;
+     font-size: 25px;
  }
 
  h2 .date {
      font-weight: normal;
      font-size: 13px;
+     color:green;
  }
 
 
 p.code {
-        background: gray;
-        margin: 2px; padding: 12px 0 22px 12px;
-        width: 10%;
+        width: 100%;
         overflow: auto;
         color: #000000;
-        border-style:solid;
-        border-width:10px;
+        font-size:10px;
         } 
-
+.test {
+    font-size:20px;
+        position:reletive;
+        margin:0 auto;
+}
 ol{
     counter-reset: li; /* Initiate a counter */
     list-style: none; /* Remove default numbering */
@@ -43,7 +45,19 @@ ol ol{
     color:black;
 }
 
-.rounded-list a{
+ol p {
+    color: black;
+    background: #A9E2F3;
+    padding-left:10px;
+    width:99%;
+    display: block;
+ border-radius: 10px;
+ font-size:12px;
+ font-family:"Lucida Console", Monaco, monospace;
+}
+/* wut wut */
+
+.rounded-list p{
             position: relative;
             display: block;
             padding: .4em .4em .4em 2em;
@@ -60,17 +74,20 @@ ol ol{
             -ms-transition: all .3s ease-out;
             -o-transition: all .3s ease-out;
             transition: all .3s ease-out;   
-        width:45%;
+        width:75%;
+        min-width:800px;
+
         }
-.rounded-list a:hover{
+.rounded-list p:hover{
     background: #eee;
 }
 
-.rounded-list a:hover:before{
-    transform: rotate(360deg);  
+.rounded-list p:hover:before{
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
 }
 
-.rounded-list a:before{
+.rounded-list p:before{
     content: counter(li);
     counter-increment: li;
     position: absolute; 
@@ -87,12 +104,5 @@ ol ol{
     border-radius: 2em;
     transition: all .3s ease-out;
 }
-ol p {
-    color: black;
-    background: #A9E2F3;
-    padding-left:10px;
-    width:59%;
-    display: block;
- border-radius: 10px;
-}
+/* wut hat*/
 
