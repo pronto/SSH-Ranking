@@ -17,7 +17,7 @@ from sqlclass import *
 uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
 
 for a in uniq_ips:
-    date=Session.query(ips.datetime).filter(ips.ip==a[0]).order_by(-ips.pk).limit(1).scalar()
+    date=Session.query(ips.dtime).filter(ips.ip==a[0]).order_by(-ips.pk).limit(1).scalar()
     date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
     date=date.strftime('%Y-%m-%d %H:%M:%S')
     print "\033[1m"+a[0] + "\033[0m attempted \033[1m" + str(a[1]) + "\033[0m Last Attempt: \033[1m"+ date+" \033[0mtimes with users: "
