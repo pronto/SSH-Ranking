@@ -14,7 +14,7 @@ Get info from auth.log.*           YES
 
 Toss in MySQL                      YES (but still reworking now DB works)
 
-Get RDNS and save RDNS history     NO
+Get RDNS and save RDNS history     Gets rdns, displays it. but not history
 
 GeoIP                              NO
 
@@ -34,6 +34,15 @@ Create Table: CREATE TABLE `ips_alc2` (
   `pk` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`pk`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1
+CREATE TABLE `rdns_tbl` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(20) NOT NULL,
+  `rdns` text NOT NULL,
+  `good` varchar(20) NOT NULL,
+  `dtime` datetime NOT NULL,
+  PRIMARY KEY (`pk`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
 </pre>
 edit the config.ini for the script
 
@@ -41,9 +50,9 @@ edit the config.ini for the script
 
 
 python things you're gonna need(for now, more later):
-    MySQLdb gzip, argparse, ConfigParser
-    flask-mysql
-sql alchemy
+sqlalchemy, argparse,ConfigParser
+
+web ui needs: flask
 
 screenshot: http://pronto185.com/screens/output.now.with.bold.png
 atm run it as:
@@ -51,7 +60,7 @@ atm run it as:
 
 then when that is done, you can do a ./outputdata.py
 
-
+<pre>
 116.124.x.x attempted 5153 times with users: 
 
         root:153,  test:108,  user:87,  minecraft:82,  nagios:81,  webadmin:81,  postgres:80,  tomcat:79,  testuser:79,  webmaster:79,   
@@ -67,3 +76,5 @@ then when that is done, you can do a ./outputdata.py
 87.x.x.x attempted 823 times with users: 
 
         root:582,  bin:9,  haqr:9,  oracle:7,  postgres:5,  lswang:4,  nphone:4,  game1:3,  mysql:3,  ourpalm:3,   
+
+        </pre>
