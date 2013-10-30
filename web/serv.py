@@ -20,7 +20,6 @@ stats_ip=par.get("sshrank","stats_ip")
 socket.setdefaulttimeout(3)
 
 
-
 def getlastattempt(ip):
     Session.query(ips.datetime).filter(ips.ip==ip).order_by(-ips.pk).limit(1).scalar()
     date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
@@ -38,9 +37,8 @@ def main():
         users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
         for user in users:
             lollist.append((ip,user[0],user[1]))
-    print len(lollist)
-    return render_template('main.html',uniq_ips=uniq_ips,lollist=lollist)
-
+    alldns=Session.query(rdns).all()
+    return render_template('main.html',uniq_ips=uniq_ips,lollist=lollist,alldns=alldns)
 
 
 if __name__=='__main__':
