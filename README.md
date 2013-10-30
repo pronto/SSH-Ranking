@@ -10,6 +10,7 @@ this script will take you auth logs and toss them in sql, then watch authlog for
 then ranks them with other things
 
 status:
+<pre>
 Get info from auth.log.*           YES
 
 Toss in MySQL                      YES (but still reworking now DB works)
@@ -22,10 +23,14 @@ easy install method                NO
 
 watch for new things               NO
 
+</pre>
+
 
 to install set up mysql, create a user/pw for the project
 add a database called "db_sshrank"
 then run this mysql command to make the table 
+
+
 <pre>
 Create Table: CREATE TABLE `ips_alc2` (
   `ip` varchar(20) NOT NULL,
