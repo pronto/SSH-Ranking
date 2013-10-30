@@ -72,19 +72,6 @@ def rdns_into_db(ip,run):
             insertsql_dns((ip,rdns,rcheck,timenow))
     print "========================="
 
-
-#its gonna look kinda similar to hte outputdata.py sinceit pulls from same sources
-
-#this is gonna be controlled by the stats_ip config
-
-#old useless crap for next few lines
-#con =MySQLdb.connect(mysqlserv,mysqluser,mysqlpass,"db_sshrank")
-#x.execute("""SELECT ip, count(*) AS cnt FROM ips_tbl GROUP BY ip ORDER BY cnt DESC LIMIT %s""" %stats_ip)
-#x=con.cursor()
-##get the IPs
-#x.execute("""SELECT ip, count(*) AS cnt FROM ips_tbl GROUP BY ip ORDER BY cnt DESC LIMIT %s""" %stats_ip)
-#data=x.fetchall()
-#
 #do a loopdaloop; check to see if the ip is alarady in the rdns_tbl
 #if it is; check to see when it was last updated; update if old
 #if it is not;do rdns, then if:
@@ -113,11 +100,6 @@ for line in data:
         print '---;---;;'
         #so there's already an entry for rdns
         #we wanna get when it was last updated and compare :D
-        #not sure why i even had these statements here... its the same fucking thing from above?!
-        #x.execute("""SELECT * FROM rdns_tbl WHERE ip='%s' ORDER BY datetime ASC""" % a[0])
-        #erdns=x.fetchall()
-        #rr
-        #get the last entery thing
         elasped=int(time.time()) -  int(rdns_data.dtime.strftime("%s"))
         #print elasped +","+rdns_age
         if elasped > rdns_age:
