@@ -11,26 +11,30 @@
             <div id="maincontent">
     <a href="https://github.com/pronto/SSH-Ranking">more info on the gihub</a>
     <h2>SSH-ranking!</h2>
+    Does not auto update(yet). User list is set to show at most 10 users.<br>
+    This is a list of IPs that have attempted to brute force my server via SSH
     <!-- list css stuff from http://www.red-team-design.com/css3-ordered-list-styles -->
     <ol class="rounded-list">
-    {% autoescape false -%}
     {% for ip in uniq_ips -%}
     {% set rowip = ip[0] -%}
     <li>
-    <p><a href=""><b>{{ ip[0] }} </b> attempted <b>{{ ip[1] }}</b> times </a>
-    with users:
-    {% for user in lollist -%}
+    <p class="rounded-list">
+    <font size=3> <b>{{ ip[0] }} </b> attempted <b>{{ ip[1] }}</b> times <!--</a>--></br></font>
+{% for res in alldns -%}
+{% if res.good != '-' -%}
+{% if res.ip == rowip -%}
+&nbsp;&nbsp;&nbsp;&nbsp;<b>{{res.rdns}}</b> is <b>{{res.good}}</b><br>
+{% endif -%}
+{% endif -%}
+{% endfor -%}
+&nbsp;&nbsp;&nbsp;
+{% for user in lollist -%}
         {% if user[0][0] == rowip -%}
-            <b>{{ user[1] }}</b>:{{ user[2] }}
+            <b> {{ user[1] -}}</b>:{{ user[2] -}}
             {% endif -%}
             {% endfor -%}
-            <br>
+            {% endfor -%}
             </p>
-            </li>
-    {% endfor -%}
     <hr>
-    {% endautoescape -%}
 </ol>
 <hr>
-
-</div>
