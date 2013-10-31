@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
             <head>
                 <title>ssh-rank!</title>
                 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
@@ -11,7 +11,7 @@
             <div id="maincontent">
     <a href="https://github.com/pronto/SSH-Ranking">more info on the gihub</a>
     <h2>SSH-ranking!</h2>
-    Does not auto update(yet). User list is set to show at most 10 users.<br>
+    the data will is auto-updating, but the webpage is not <br>User list is set to show at most 10 users.<br>
     This is a list of IPs that have attempted to brute force my server via SSH
     <!-- list css stuff from http://www.red-team-design.com/css3-ordered-list-styles -->
     <ol class="rounded-list">
