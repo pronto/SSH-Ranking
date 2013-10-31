@@ -8,6 +8,7 @@ try:
 except ImportError as exc:
         sys.stderr.write("Error: failed to import settings module ({})".format(exc))
 
+
 #set up the config file things
 
 par = SafeConfigParser()
@@ -24,6 +25,7 @@ mysqlpass=par.get("sshrank","mysqlpass")
 
 arg=argparse.ArgumentParser()
 arg.add_argument('-f', action='store', dest='firstrun', default='off', help='set first run(default off), do -f on')
+arg.add_argument('-w', action='store', dest='watch', default='off', help='set to start watching (default off), do -w on')
 year="2013"
 
 
@@ -63,6 +65,16 @@ def openfile(logfile):
         celery = open(logfile, 'r')
     return celery
 
+def follow(thefile):
+    thefile.seek(0,2)      # Go to the end of the file
+    while True:
+         line = thefile.readline()
+         if not line:
+             time.sleep(0.1)    # Sleep briefly
+             continue
+         yield line
+
+
 argres = arg.parse_args()
 if argres.firstrun == "on":
     print "doing 1st run! yay!"
@@ -79,12 +91,22 @@ if argres.firstrun == "on":
         start_time = time.time()
         for line in openfile(afile):
             if "Failed password for invalid user" in line:
-                #con = MySQLdb.connect(host=MySQLdb
-                #print line
                 data=datafromline(line,year)
-                #print data
                 #Process(target=insertsql,args=(data,)).start()
                 insertsql(data)
         end_time = time.time()
         print("Elapsed time was %g seconds" % (end_time - start_time))
+
+
+
+if argres.watch == "on":
+    print "\n\n==========Now Watching the logfile========"
+    #later to just be a var or something, but meh
+    loglines=follow(open("/var/log/auth.log"))
+    for line in loglines:
+        if "Failed password for invalid user" in line:
+            data=datafromline(line,year)
+            #Process(target=insertsql,args=(data,)).start()
+            insertsql(data)
+
 
