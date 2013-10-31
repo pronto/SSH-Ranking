@@ -19,20 +19,31 @@
     {% set rowip = ip[0] -%}
     <li>
     <p class="rounded-list">
-    <font size=3> <b>{{ ip[0] }} </b> attempted <b>{{ ip[1] }}</b> times <!--</a>--></br></font>
+    <font size=3> <b>{{ ip[0] }} </b> attempted <b>{{ ip[1] }}</b> times<!--</a>--></font>
+{% for lasta in datelist -%} 
+{% if lasta[0] == ip[0] -%}
+ | Last attempt on: {{ lasta[1] }}
+{% endif -%}
+{% endfor -%}
+
+</br>
 {% for res in alldns -%}
 {% if res.good != '-' -%}
 {% if res.ip == rowip -%}
-&nbsp;&nbsp;&nbsp;&nbsp;<b>{{res.rdns}}</b> is <b>{{res.good}}</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>{{res.rdns}}</b> is <b>
+    {% if res.good == 'good' -%}
+    <font color="green">{% else -%}
+        <font color="#8B0000"> {% endif -%}
+            {{res.good}}</font></b><br>
 {% endif -%}
 {% endif -%}
 {% endfor -%}
 &nbsp;&nbsp;&nbsp;
-{% for user in lollist -%}
-        {% if user[0][0] == rowip -%}
-            <b> {{ user[1] -}}</b>:{{ user[2] -}}
+{% for user in userlist -%}
+{% if user[0][0] == rowip -%}
+        <b> {{ user[1] -}}</b>:{{ user[2] -}}
             {% endif -%}
-            {% endfor -%}
+            {% endfor -%}<br>
             {% endfor -%}
             </p>
     <hr>
