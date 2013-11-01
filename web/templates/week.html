@@ -1,18 +1,9 @@
 
 {% include 'header.html' %}
+<h2><center>{{ subhead }}</center></h2>
+<center><a href='/week'>Show only 7 days</a> | <a href='/alltime'>Show All</a>
+</center>
+    
+    {% include 'iplist.html' %}
 
-week list
-<br> i'll add more  of the infos later</br>
-
-<ol>
-{% for ip in uniq_ips -%}
-{% set rowip = ip[0] -%}
-<li>{{ ip[0] }}, {{ ip[1] }} <br>
-last attempt: {% for lasta in datelist -%}
-{% if lasta[0] == ip[0] -%}
- {{ lasta[1] }}
-{% endif -%}
-{% endfor -%}
-</li>
-{% endfor -%}
-</ol>
+<!-- later footer thing -->

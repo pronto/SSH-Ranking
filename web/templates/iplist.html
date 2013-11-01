@@ -1,0 +1,29 @@
+<div id="box">
+    <ol>
+        {% for ip in uniq_ips -%}
+            {% set rowip = ip[0] -%}
+            <li id='listitem'>
+            <div class="ip"><span class='ip2'>{{ ip[0] }}</span> 
+                <span class='test'>attempted <b>{{ ip[1] }} </b> times.</span></div>
+            <div class="date">last attempt: {% for lasta in datelist -%}
+                {% if lasta[0] == ip[0] -%}
+                    {% if lasta[1] == newest -%}
+                    <div class="newest"><b>{{ lasta[1] }} </b></div>
+                    {% else %}
+                        <b>{{ lasta[1] }}</b>
+                        {% endif -%}
+                {% endif -%}
+                {% endfor -%}</div><div class="userlist">
+                {% for user in userlist -%}
+                {% if user[0][0] == rowip -%}
+                <b>{{ user[1] }} </b>:{{user[2]}} 
+                {% endif -%}
+                {% endfor -%} 
+            </div>
+            </li>
+        {% endfor -%}
+    </ol>
+
+</div>
+
+

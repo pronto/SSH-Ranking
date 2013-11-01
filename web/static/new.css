@@ -1,0 +1,54 @@
+/* new css for thigns */
+
+body{
+    background-color:gray;
+}
+h1 {
+}
+#box{
+    width:80%;
+    background:#606060;
+    padding:1px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#listitem{
+    width:90%;
+    background:#787878;
+    padding:5px;
+    border:1px solid black;
+    font-family:"Lucida Console", Monaco, monospace;
+    font-size:15px;
+    padding-bottom:10px;
+}
+.ip{
+    font-size:17px;
+    display: inline;
+}
+.ip2{
+    display:inline;
+    font-weight:bold;
+    width:160px;
+    padding-right:1px;
+    float:left;
+}
+.test{
+    position:relative;
+    float:left;
+}
+.date{
+    display:inline;
+    float:right;
+}
+.newest{
+    color:blue;
+    display: inline;
+}
+.userlist {
+    font-size:10pt;
+}
+#listitem:hover{
+    background:#A8A8A8;
+}
+
