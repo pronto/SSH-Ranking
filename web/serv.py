@@ -68,7 +68,7 @@ def week():
     userlist=[]
     datelist=[]
     deltime=[]
-    subhead="Last 7 days"
+    subhead="week"
     lastweek=datetime.today()-timedelta(7)
     uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).\
             order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
@@ -84,7 +84,7 @@ def week():
             userlist.append((ip,user[0],user[1]))
     alldns=Session.query(rdns).all()
     newest=max(deltime)
-    return render_template('week.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=subhead)
+    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=subhead)
 
 
 
@@ -93,7 +93,7 @@ def alltime():
     userlist=[]
     datelist=[]
     deltime=[]
-    subhead="All Time"
+    subhead="all"
     uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).\
             order_by('total DESC').limit(int(total_ip)).all()
     for ip in uniq_ips:
@@ -108,7 +108,7 @@ def alltime():
             userlist.append((ip,user[0],user[1]))
     alldns=Session.query(rdns).all()
     newest=max(deltime)
-    return render_template('week.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest, subhead="All Time")
+    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest, subhead=subhead)
 
 
 
