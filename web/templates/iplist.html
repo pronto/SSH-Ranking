@@ -14,7 +14,22 @@
                         <b>{{ lasta[1] }}</b>
                         {% endif -%}
                 {% endif -%}
-                {% endfor -%}</div><div class="userlist">
+                {% endfor -%}</div>
+            {% for res in alldns -%}
+                {% if res.ip == rowip -%}
+                    {% if res.good != '-' %}
+                        <div class='userlist'>{{res.rdns}} is  
+                        {% if res.good == 'good' -%}
+                            <font color='green'>
+                        {% else -%}
+                            <font color='#8B0000'>
+                        {% endif -%}
+                        <b> {{ res.good }}</b>
+                            </font>
+                    {% endif -%}
+                {% endif -%}
+            {% endfor -%}
+            <div class="userlist">
                 {% for user in userlist -%}
                 {% if user[0][0] == rowip -%}
                 <b>{{ user[1] }}</b>:{{user[2]}}

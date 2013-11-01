@@ -1,0 +1,27 @@
+{% include 'header.html' %}
+
+<p id="text">
+    This project, SSHRanking, is just a fun way to be able to play with: <a href="http://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a>, <a href="http://jinja.pocoo.org/docs/" target="_blank">jinja2</a>, <a href="http://flask.pocoo.org/" target="_blank">flask</a> and python.
+    <br>
+    <br>
+
+the first script, sshrank.py has two flags:
+<pre>
+server# ./sshrank.py -h
+root
+usage: sshrank.py [-h] [-f FIRSTRUN] [-w WATCH]
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -f FIRSTRUN  set first run(default off), do -f on
+  -w WATCH     set to start watching (default off), do -w on
+</pre>
+<br>
+normally you're going to want to run it as 'sshrank.py -f on -w on' so it'll scan all the auth.log files and drop into watching auth.log for new attempts.<br>
+This takes everything from /var/log/auth.log* and tosses into a DB (I use mysql, but SQLAlchemy should make it easy for you to change that)<br>
+<br>
+
+then theres ./rdnsthings.py which has no flags, you just run it and it updates rdns info for the IPs.
+
+</p>
+{% include 'footer.html' %}

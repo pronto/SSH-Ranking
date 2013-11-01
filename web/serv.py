@@ -71,6 +71,10 @@ def list_test(time):
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html',subhead='about')
+
 @app.errorhandler(404)
 def page404(e):
     return render_template('404.html'),404
