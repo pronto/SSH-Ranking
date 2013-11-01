@@ -1,0 +1,18 @@
+
+{% include 'header.html' %}
+
+week list
+<br> i'll add more  of the infos later</br>
+
+<ol>
+{% for ip in uniq_ips -%}
+{% set rowip = ip[0] -%}
+<li>{{ ip[0] }}, {{ ip[1] }} <br>
+last attempt: {% for lasta in datelist -%}
+{% if lasta[0] == ip[0] -%}
+ {{ lasta[1] }}
+{% endif -%}
+{% endfor -%}
+</li>
+{% endfor -%}
+</ol>
