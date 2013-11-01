@@ -51,8 +51,8 @@ def list_test(time):
     elif time == 'all':
         uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
     else:
-        subhead="zomg wtf bro"
-        return render_template('main.html',subhead=subhead)
+        return render_template('404.html'),404
+
     for ip in uniq_ips:
         users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
         date=Session.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
@@ -68,7 +68,9 @@ def list_test(time):
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
 
-
+@app.errorhandler(404)
+def page404(e):
+    return render_template('404.html'),404
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',debug=True)
