@@ -1,20 +1,5 @@
 
 {% include 'header.html' %}
-<h2><center>
-{% if subhead == 'all' -%}
-All time
-{% elif subhead == 'week' -%}
-7 days
-{% endif %}
-
-</center></h2>
-
-<div id="roundbar-grey">
-    <ul>
-        <li class="active"><a href="/alltime">All Time</a></li>
-        <li class="active"><a href="/week">7 days</a></li>
-    </ul>
-</div>
     {% include 'iplist.html' %}
 
 

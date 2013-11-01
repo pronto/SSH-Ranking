@@ -37,10 +37,22 @@ app=Flask(__name__)
 
 @app.route('/')
 def main():
+    subhead="main"
+    return render_template('main.html',subhead=subhead)
+
+@app.route('/ssh_rank/lists/<time>')
+def list_test(time):
     userlist=[]
     datelist=[]
     deltime=[]
-    uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
+    if time == 'week':
+        lastweek=datetime.today()-timedelta(7)
+        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
+    elif time == 'all':
+        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
+    else:
+        subhead="zomg wtf bro"
+        return render_template('main.html',subhead=subhead)
     for ip in uniq_ips:
         users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
         date=Session.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
@@ -53,63 +65,7 @@ def main():
             userlist.append((ip,user[0],user[1]))
     alldns=Session.query(rdns).all()
     newest=max(deltime)
-    return render_template('main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest)
-
-
-
-@app.route('/new')
-def new():
-    #things
-    return render_template('new.html')
-
-
-@app.route('/week')
-def week():
-    userlist=[]
-    datelist=[]
-    deltime=[]
-    subhead="week"
-    lastweek=datetime.today()-timedelta(7)
-    uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).\
-            order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
-    for ip in uniq_ips:
-        users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
-        date=Session.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
-        date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
-        date=date.strftime('%Y-%m-%d %H:%M:%S')
-        #ip.append(date)
-        datelist.append((ip[0],date))
-        deltime.append(date)
-        for user in users:
-            userlist.append((ip,user[0],user[1]))
-    alldns=Session.query(rdns).all()
-    newest=max(deltime)
-    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=subhead)
-
-
-
-@app.route('/alltime')
-def alltime():
-    userlist=[]
-    datelist=[]
-    deltime=[]
-    subhead="all"
-    uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).\
-            order_by('total DESC').limit(int(total_ip)).all()
-    for ip in uniq_ips:
-        users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
-        date=Session.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
-        date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
-        date=date.strftime('%Y-%m-%d %H:%M:%S')
-        #ip.append(date)
-        datelist.append((ip[0],date))
-        deltime.append(date)
-        for user in users:
-            userlist.append((ip,user[0],user[1]))
-    alldns=Session.query(rdns).all()
-    newest=max(deltime)
-    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest, subhead=subhead)
-
+    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
 
 

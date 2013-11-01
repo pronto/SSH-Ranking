@@ -1,4 +1,5 @@
-<div id="box">
+
+
     <ol>
         {% for ip in uniq_ips -%}
             {% set rowip = ip[0] -%}
@@ -16,14 +17,11 @@
                 {% endfor -%}</div><div class="userlist">
                 {% for user in userlist -%}
                 {% if user[0][0] == rowip -%}
-                <b>{{ user[1] }} </b>:{{user[2]}} 
+                <b>{{ user[1] }}</b>:{{user[2]}}
                 {% endif -%}
                 {% endfor -%} 
             </div>
             </li>
         {% endfor -%}
     </ol>
-
-</div>
-
 

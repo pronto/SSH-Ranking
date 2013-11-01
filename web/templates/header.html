@@ -1,10 +1,31 @@
 <!doctype html>
 <html>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <head>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <title>SSHranking</title>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='new.css') }}">
     </head>
 
     <body>
 <h1> <center>SSH ranking!</center></h1>
+<h2><center>
+{% if subhead == 'all' -%}
+All time
+{% elif subhead == 'week' -%}
+7 days
+{% elif subhead == 'main' -%}
+Hi.
+{% else -%}
+404'd
+{% endif %}
+</center></h2>
+
+<div id="roundbar-grey">
+    <ul>
+        <li class="active"><a href="/ssh_rank/lists/all">All Time</a></li>
+        <li class="active"><a href="/ssh_rank/lists/week">7 days</a></li>
+        <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo</a></li>
+    </ul>
+</div>
+<div id="box">

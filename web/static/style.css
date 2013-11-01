@@ -84,7 +84,7 @@ ol p {
 
 .rounded-list p:hover:before{
     transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
+    -webkit-transform: rotate(-360deg);
 }
 
 .rounded-list p:before{
