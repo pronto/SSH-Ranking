@@ -1,0 +1,64 @@
+
+
+<table class='gridtable'>
+    <tr>
+        <th>IP</th>
+        <th>Attempts</th>
+        <th>rdns</th>
+        <th>geoIP/Last attempt</th>
+    </tr>
+    {% set tableid=cycler('table2','table1') %}
+    {% for ip in uniq_ips -%}
+    {% set rowip = ip[0] -%}
+<tbody id='{{tableid.next()}}'>
+    <tr>
+        <td><b>{{ ip[0]}}</b> </td>
+        <td>{{ip[1]}}</td>
+        <td>      {% for res in alldns -%}
+                {% if res.ip == rowip -%}
+                    {% if res.good != '-' %}
+                        {{res.rdns}} is  
+                        {% if res.good == 'good' -%}
+                            <font color='green'>
+                        {% else -%}
+                            <font color='#8B0000'>
+                        {% endif -%}
+                        <b> {{ res.good }}</b>
+                            </font>
+                    {% endif -%}
+                {% endif -%}
+            {% endfor -%}
+
+        </td>
+        <td>the moon</td>
+   </tr>
+   <tr >
+        <td>Users:</td>
+        <td colspan="2">{% for user in userlist -%}
+                {% if user[0][0] == rowip -%}
+                <b>{{ user[1] }}</b>:{{user[2]}}
+                {% endif -%}
+                {% endfor -%} 
+        </td>
+        <td>
+         last attempt: {% for lasta in datelist -%}
+                {% if lasta[0] == ip[0] -%}
+                    {% if lasta[1] == newest -%}
+                    <div class="newest"><b>{{ lasta[1] }} </b></div>
+                    {% else %}
+                        <b>{{ lasta[1] }}</b>
+                        {% endif -%}
+                {% endif -%}
+                {% endfor -%}
+
+        </td>
+     </tr> </tbody> {% endfor -%}
+</table>
+<hr>
+
+{% set cycling_list = cycler('val1', 'val2', 'val3') %}
+<pre>
+{{ cycling_list.current }} == {{ cycling_list.next() }}  
+{{ cycling_list.current }} == {{ cycling_list.next() }}  
+{{ cycling_list.current }} == {{ cycling_list.next() }}  
+</pre>

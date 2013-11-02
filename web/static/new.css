@@ -5,23 +5,48 @@ body{
 }
 h1 {
 }
+pre {
+    font-size: 90%;
+    line-height: 1.2em;
+    font-family: "Courier 10 Pitch", Courier, monospace; 
+    white-space: pre; 
+    white-space: pre-wrap; 
+    white-space: -moz-pre-wrap; 
+    white-space: -o-pre-wrap; 
+
+    height:1%;
+    width: auto;
+    display: block;
+    clear: both;
+    color: #6E6E6E;
+    padding: 1em 1em;
+    margin: auto 40px auto 40px;
+    background: black;
+    border: solid 1px #e1e1e1
+} 
+
 #box{
-    width:80%;
+   width:99%;
     background:#606060;
-    padding:0px;
+    padding:1px;
     margin-left:auto;
     margin-right:auto;
     clear:both;
 }
 
 #listitem{
-    width:90%;
+    width:96%;
     background:#787878;
     padding:5px;
     border:1px solid black;
     font-family:"Lucida Console", Monaco, monospace;
     font-size:15px;
     padding-bottom:10px;
+}
+#text{
+    padding:5px;
+    color:black;
+
 }
 .ip{
     font-size:17px;
@@ -63,7 +88,7 @@ h1 {
         clear:left;
         float:left;
         width:100%;
-        background:#B7B7B7 url(roundbar-grey.gif) 0 25% repeat;
+        background:#B7B7B7 ;
         font-family:Trebuchet MS, Helvetica, sans-serif;
         border-bottom:1px solid #A8A8A8;
         overflow:hidden;
@@ -116,4 +141,44 @@ h1 {
     #roundbar-grey ul li a:hover {
         background:url(roundbar-grey.gif) 0 75% repeat;
     }
+ 
+
+
+    /* crap for tables? */
     
+    table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    width:95%;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+}
+
+#table1 {
+        background:#B7B7B7 ;
+
+}
+#table2{
+        background:#808080;
+
+}
+
+#table2:hover, #table1:hover {
+background-color:#333333;
+color:white;
+}
