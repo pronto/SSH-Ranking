@@ -1,6 +1,6 @@
 {% include 'header.html' %}
 
-<p id="text">
+<p>
     This project, SSHRanking, is just a fun way to be able to play with: <a href="http://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a>, <a href="http://jinja.pocoo.org/docs/" target="_blank">jinja2</a>, <a href="http://flask.pocoo.org/" target="_blank">flask</a> and python.
     <br>
     <br>
@@ -16,12 +16,31 @@ optional arguments:
   -f FIRSTRUN  set first run(default off), do -f on
   -w WATCH     set to start watching (default off), do -w on
 </pre>
-<br>
-normally you're going to want to run it as 'sshrank.py -f on -w on' so it'll scan all the auth.log files and drop into watching auth.log for new attempts.<br>
-This takes everything from /var/log/auth.log* and tosses into a DB (I use mysql, but SQLAlchemy should make it easy for you to change that)<br>
-<br>
-
+<p>normally you're going to want to run it as 'sshrank.py -f on -w on' so it'll scan all the auth.log files and drop into watching auth.log for new attempts.</p>
+<p>This takes everything from /var/log/auth.log* and tosses into a DB (I use mysql, but SQLAlchemy should make it easy for you to change that)</p>
+<p>
 then theres ./rdnsthings.py which has no flags, you just run it and it updates rdns info for the IPs.
+</p>
+<p>next you can show the data easily on the cli with ./outputdata.py</p>
+<p>ouputdata.py still needs to be updated so it shows rdns, and ability to select date rage</p>
+<pre>
+% ./outputdata.py 
+177.154.132.99 attempted 45053 Last Attempt: 2013-10-03 13:51:13 times with users: 
+        root:1244,  admin:105,  apache:94,  Tsai:40,  user:35,  kim:32,  vincent:31,  linda:30,  laura:30,  julia:30,   
+
+184.22.118.11 attempted 6193 Last Attempt: 2013-10-11 16:10:52 times with users: 
+        root:4871,  ftpuser:70,  admin:62,  test:50,  svn:40,  www-data:36,  user:34,  www:30,  teamspeak:28,  oracle:24,   
+
+37.59.161.13 attempted 2278 Last Attempt: 2013-10-31 13:52:47 times with users: 
+        buttfart:548,  chickenfucker:485,  cockmonster:483,  dumpsterslut:483,  tittysprinkles:276,  &lt;script&gt;alert(xss)&lt;,   
+
+190.14.40.14 attempted 1318 Last Attempt: 2013-10-18 12:14:41 times with users: 
+        root:451,  lady:9,  testuser:3,  greg:3,  aaron:3,  trinity:3,  live:2,  oracle:2,  dummy:2,  arno:2,   
+
+218.25.90.27 attempted 1144 Last Attempt: 2013-10-25 13:57:44 times with users: 
+        root:841,  test:224,  test1:24,  hirata:14,  tamada:13,  satoshi:10,  nakae:9,  schwarze:9,   
+</pre>
+a
 
 </p>
 {% include 'footer.html' %}

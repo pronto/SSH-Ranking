@@ -8,7 +8,7 @@
     </head>
 
     <body>
-<h1> <center>SSH ranking!</center></h1>
+<h1> <center>SSH Ranking!</center></h1>
 <h2><center>
 {% if subhead == 'all' -%}
 All time
@@ -18,6 +18,8 @@ All time
 Hi.
 {% elif subhead == '30day' -%}
 Last 30 days
+{% elif subhead == 'about' -%}
+About this website.
 {% else -%}
 404'd
 {% endif %}
@@ -28,6 +30,7 @@ Last 30 days
         <li class="active"><a href="/ssh_rank/lists/all">All Time</a></li>
         <li class="active"><a href="/ssh_rank/lists/week">7 days</a></li>
         <li class="active"><a href="/ssh_rank/lists/30day">30 days</a></li>
+        <li class="active"><a href="/about">About.</a></li>
         <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo</a></li>
     </ul>
 </div>

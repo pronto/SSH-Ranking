@@ -13,11 +13,11 @@
 <tbody id='{{tableid.next()}}'>
     <tr>
         <td><b>{{ ip[0]}}</b> </td>
-        <td>{{ip[1]}}</td>
+        <td><b>{{ip[1]}}</b></td>
         <td>      {% for res in alldns -%}
                 {% if res.ip == rowip -%}
                     {% if res.good != '-' %}
-                        {{res.rdns}} is  
+                        <b>{{res.rdns}} </b>is  
                         {% if res.good == 'good' -%}
                             <font color='green'>
                         {% else -%}

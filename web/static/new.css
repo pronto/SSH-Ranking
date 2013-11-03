@@ -1,10 +1,32 @@
 /* new css for thigns */
 
 body{
-    background-color:gray;
+    background-color:#202021;
 }
-h1 {
+a {
+ text-decoration:none; 
+border-bottom:1px 
+dotted; 
+color:#9f9efe;
 }
+a:hover{
+color:#e6e6e6;
+}
+
+h1,h2 {
+color:black;
+background:#454545;
+width:400px;
+margin-left:auto;
+margin-right:auto;
+}
+h2{
+    width:300px;
+}
+p {
+    color:#9E9E9E;
+}
+
 pre {
     font-size: 90%;
     line-height: 1.2em;
@@ -27,47 +49,19 @@ pre {
 
 #box{
    width:99%;
-    background:#606060;
-    padding:1px;
+    background:#373739;
+    padding:10px;
     margin-left:auto;
     margin-right:auto;
     clear:both;
 }
 
-#listitem{
-    width:96%;
-    background:#787878;
-    padding:5px;
-    border:1px solid black;
-    font-family:"Lucida Console", Monaco, monospace;
-    font-size:15px;
-    padding-bottom:10px;
-}
 #text{
     padding:5px;
-    color:black;
+    color:green;
 
 }
-.ip{
-    font-size:17px;
-    font-size-adjust: 0.5;
-    display: inline;
-}
-.ip2{
-    display:inline;
-    font-weight:bold;
-    width:160px;
-    padding-right:1px;
-    float:left;
-}
-.test{
-    position:relative;
-    float:left;
-}
-.date{
-    display:inline;
-    float:right;
-}
+
 .newest{
     color:blue;
     display: inline;
@@ -151,7 +145,7 @@ pre {
     font-size:11px;
     color:#333333;
     border-width: 1px;
-    width:95%;
+    width:99%;
     border-color: #666666;
     border-collapse: collapse;
 }
@@ -175,10 +169,10 @@ table.gridtable td {
 }
 #table2{
         background:#808080;
-
 }
 
 #table2:hover, #table1:hover {
 background-color:#333333;
 color:white;
+
 }
