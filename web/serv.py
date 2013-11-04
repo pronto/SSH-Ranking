@@ -25,7 +25,11 @@ def getlastattempt(ip):
     Session.query(ips.datetime).filter(ips.ip==ip).order_by(-ips.pk).limit(1).scalar()
     date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
     return date.strftime('%Y-%m-%d %H:%M:%S')
-
+def killtuple(lista):
+    listb=[]
+    for a in lista:
+        listb.append(a[0])
+    return listb
 
 app=Flask(__name__)
 #app.debug=True
@@ -77,12 +81,18 @@ def list_test(time):
 def ip_info(ip):
     iplist=Session.query(ips.ip).distinct().all()
     if any(b[0] == ip for b in iplist):
-        dates=[]
         users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
-        datequery=Session.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all()
-        for appenddate in datequery:
-            dates.append(appenddate[0])
+        dates=killtuple(Session.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
         return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates)
+    else:
+        return render_template('404.html'),404
+
+@app.route('/ssh_rank/users/<user>')
+def userpage(user):
+    users = killtuple(Session.query(ips.user).distinct())
+    if str(user) in users:
+        other_ips=killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())
+        return render_template('user_info.html',subhead='users',user=user, other_ips=other_ips)
     else:
         return render_template('404.html'),404
 
