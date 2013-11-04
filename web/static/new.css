@@ -19,12 +19,15 @@ background:#454545;
 width:400px;
 margin-left:auto;
 margin-right:auto;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 h2{
     width:300px;
 }
 p {
     color:#9E9E9E;
+    padding-left:10px;
 }
 
 pre {
@@ -35,7 +38,6 @@ pre {
     white-space: pre-wrap; 
     white-space: -moz-pre-wrap; 
     white-space: -o-pre-wrap; 
-
     height:1%;
     width: auto;
     display: block;
@@ -129,11 +131,9 @@ pre {
         display:block;
     }
     #roundbar-grey ul li.active a {
-        background:url(roundbar-grey.gif) 0 75% repeat;
         font-weight:bold;
     }
     #roundbar-grey ul li a:hover {
-        background:url(roundbar-grey.gif) 0 75% repeat;
     }
  
 
@@ -170,9 +170,9 @@ table.gridtable td {
 #table2{
         background:#808080;
 }
-
+/*
 #table2:hover, #table1:hover {
 background-color:#333333;
 color:white;
 
-}
+} */

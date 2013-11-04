@@ -53,6 +53,9 @@ def list_test(time):
     elif time == '30day':
         lastweek=datetime.today()-timedelta(30)
         uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
+    elif time == '24hr':
+        lastweek=datetime.today()-timedelta(3)
+        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     else:
         return render_template('404.html'),404
 
@@ -70,6 +73,18 @@ def list_test(time):
     newest=max(deltime)
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
+@app.route('/ssh_rank/ip_info/<ip>')
+def ip_info(ip):
+    iplist=Session.query(ips.ip).distinct().all()
+    if any(b[0] == ip for b in iplist):
+        dates=[]
+        users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
+        datequery=Session.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all()
+        for appenddate in datequery:
+            dates.append(appenddate[0])
+        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates)
+    else:
+        return render_template('404.html'),404
 
 @app.route('/about')
 def about():

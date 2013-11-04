@@ -1,0 +1,20 @@
+{% include 'header.html' %}
+<p>Attempted users: </p>
+<pre>
+{% for user_batch in users|batch(15) -%} 
+{% for user in user_batch -%}
+<b>{{user[0]}}</b>:{{user[1]-}}, {% endfor %}
+{% endfor -%}
+</pre>
+<p> dates/times attempted:</p><code>
+{% for year, year_group in dates|groupby('year') -%}
+{% for month, month_list in year_group|groupby('month') -%}
+{{year}}:{{month}}<br>
+------->
+        {% for day , day_list in month_list|groupby('day') -%}
+        {{day}}, 
+        {%endfor-%}
+{% endfor %}
+{%endfor%}
+</code>
+{% include 'footer.html' %}
