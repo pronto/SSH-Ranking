@@ -8,9 +8,9 @@
     </head>
 
     <body>
-        
-        <h1> <center>SSH Ranking!</center></h1>
-<h2><center>
+        <div id="topLogo"><img src="{{ url_for('static', filename='logo.png') }}" height=100></div>
+        <h1>SSH Ranking!</h1>
+<h2>
 {% if subhead == 'all' -%}
 All time
 {% elif subhead == 'week' -%}
@@ -28,7 +28,7 @@ IP info for {{ ip }}
 {% else -%}
 404'd
 {% endif %}
-</center></h2>
+</h2>
 
 <div id="roundbar-grey">
     <ul>
