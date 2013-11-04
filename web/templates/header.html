@@ -8,7 +8,8 @@
     </head>
 
     <body>
-<h1> <center>SSH Ranking!</center></h1>
+        
+        <h1> <center>SSH Ranking!</center></h1>
 <h2><center>
 {% if subhead == 'all' -%}
 All time
@@ -18,8 +19,12 @@ All time
 Hi.
 {% elif subhead == '30day' -%}
 Last 30 days
+{% elif subhead =='24hr' -%}
+Last 24 hours
 {% elif subhead == 'about' -%}
 About this website.
+{% elif subhead == 'ipinfo' -%}
+IP info for {{ ip }}
 {% else -%}
 404'd
 {% endif %}
