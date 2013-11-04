@@ -77,6 +77,12 @@ def list_test(time):
     newest=max(deltime)
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
+@app.route('/ssh_rank/users')
+def all_user():
+    users=killtuple(Session.query(ips.user).order_by(ips.user).distinct())
+    return render_template('all_users.html',users=users, subhead='userlist')
+
+
 @app.route('/ssh_rank/ip_info/<ip>')
 def ip_info(ip):
     iplist=Session.query(ips.ip).distinct().all()
@@ -96,6 +102,12 @@ def userpage(user):
     else:
         return render_template('404.html'),404
 
+@app.route('/testing/<user>')
+def testuser(user):
+    if ',' in user:
+        user_list= user.split(",")
+        return render_template("test.user.html",user_list=user_list)
+
 @app.route('/about')
 def about():
     return render_template('about.html',subhead='about')
@@ -105,4 +117,4 @@ def page404(e):
     return render_template('404.html'),404
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0',debug=False)

@@ -16,7 +16,7 @@ color:#e6e6e6;
 h1,h2 {
 color:black;
 background:#454545;
-width:400px;
+width:500px;
 margin-left:auto;
 margin-right:auto;
     -moz-border-radius: 15px;
@@ -24,13 +24,36 @@ margin-right:auto;
     text-align:center;
 }
 h2{
-    width:300px;
+    width:400px;
 }
 h3{
     color:#9e9e9e;
     font-size:23pt;
 }
 #topLogo {float:left;margin-top:0px;margin-left:10px;}
+#footer{
+    text-align:center;
+}
+
+#footer a{
+
+    color:#9E9E9E;
+}
+
+#footer a:hover {
+    color:darkred;
+    text-decoration:underline;
+}
+#noticebox{
+    border-style:dotted;
+    border-width:1px;
+    border-color:yellow;
+    width:400px;
+    margin:1px;
+    margin-right:auto;
+    margin-left:auto;
+}
+
 p {
     color:#9E9E9E;
     padding-left:10px;
