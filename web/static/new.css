@@ -21,10 +21,12 @@ margin-left:auto;
 margin-right:auto;
     -moz-border-radius: 15px;
     border-radius: 15px;
+    text-align:center;
 }
 h2{
     width:300px;
 }
+#topLogo {float:left;margin-top:0px;margin-left:10px;}
 p {
     color:#9E9E9E;
     padding-left:10px;
