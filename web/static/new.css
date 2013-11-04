@@ -162,6 +162,13 @@ table.gridtable td {
     border-style: solid;
     border-color: #666666;
 }
+table.gridtable a {
+    color:#333333;
+}
+table.gridtable a:hover {
+    color:darkred;
+    text-decoration:overline underline;
+}
 
 #table1 {
         background:#B7B7B7 ;

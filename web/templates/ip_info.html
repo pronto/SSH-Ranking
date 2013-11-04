@@ -7,12 +7,15 @@
 {% endfor -%}
 </pre>
 <p> dates/times attempted:</p><code>
+year:mon<br>
+--------> day - attempts<br>
 {% for year, year_group in dates|groupby('year') -%}
 {% for month, month_list in year_group|groupby('month') -%}
 {{year}}:{{month}}<br>
+{% for day , day_list in month_list|groupby('day') -%}
+
 ------->
-        {% for day , day_list in month_list|groupby('day') -%}
-        {{day}}, 
+        {{day}} -  {{day_list|count}}<br>
         {%endfor-%}
 {% endfor %}
 {%endfor%}
