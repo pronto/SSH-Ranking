@@ -32,20 +32,31 @@ def killtuple(lista):
     return listb
 
 #im not even sure wtf im doing...neat i think?
-def tree_finder(type,thing):
+def tree_finder(thing):
     #lets just do it with start from ip
-     if type == 'ip':
-        list_ips=[]
-        #make sure its a real ip...
-        uniq_ips=killtuple(Session.query(ips.ip).distinct())
-        if thing in uniq_ips:
-            #get the users
-            users = killtuple(Session.query(ips.user).filter(ips.ip==str(thing)).distinct())
-            for user in users:
-                list_ips.append([user,killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())])
-            return list_ips
-        else:
-            return 'nope'
+    list_ips=[]
+    #make sure its a real ip...
+    uniq_ips=killtuple(Session.query(ips.ip).distinct())
+    if thing in uniq_ips:
+        #get the users
+        users = killtuple(Session.query(ips.user).filter(ips.ip==str(thing)).distinct())
+        for user in users:
+            list_ips.append([user,killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())])
+        return list_ips
+    else:
+        return 'nope'
+
+
+def tree_user(user):
+    list_user=[]
+    uniq_user=killtuple(Session.query(ips.user).distinct())
+    if user in uniq_user:
+        iplist = killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())
+        for ip in iplist:
+            list_user.append([ip,killtuple(Session.query(ips.user).filter(ips.ip==str(ip)).distinct())])
+        return list_user
+    else:
+        return 'nope'
 
 app=Flask(__name__)
 #app.debug=True
@@ -127,10 +138,19 @@ def testuser(user):
 @app.route('/ssh_rank/tree/<ttype>/<thing>')
 def tree(ttype,thing):
     if ttype == 'ip':
-        return render_template('tree.html', subhead='tree',tree=tree_finder('ip',str(thing)), ip=str(thing))
+        tree = tree_finder(str(thing))
+        if tree is not 'nope':
+            return render_template('tree.html', subhead='tree',tree=tree, ip=str(thing))
+        else:
+            return render_template('404.html'),404
+    elif ttype == 'user':
+        tree = tree_user(str(thing))
+        if tree is not 'nope':
+            return render_template('tree_user.html', subhead='tree',tree=tree, user=str(thing))
+        else:
+            return render_template('404.html'),404
     else:
         return render_template('404.html'),404
-
 
 
 

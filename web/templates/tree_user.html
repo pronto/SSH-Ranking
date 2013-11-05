@@ -1,0 +1,15 @@
+{% include 'header.html' %}
+<h3> {{ user }}</h3> 
+<p>This crazy part takes the inputted in (eg:  {{ user }} )</p>
+<p>Gets each IP for that user. </p>
+<p>then for each IP that uesr has, </p>
+<p>looks up each user that also has that ip @_@. cray.</p>
+
+<pre>
+{% for ip,list in tree %}
+<b>{{ip}}</b> : {% for user2 in list -%} {% if user2 != user -%}<a href="/ssh_rank/tree/user/{{user2}}">{{user2}}</a>{%else-%} {{user2}}{%endif-%}, {% endfor -%}  <br>
+
+{% endfor -%}
+</pre>
+</p>
+{% include 'footer.html' %}
