@@ -39,7 +39,7 @@ def tree_finder(thing):
     uniq_ips=killtuple(Session.query(ips.ip).distinct())
     if thing in uniq_ips:
         #get the users
-        users = killtuple(Session.query(ips.user).filter(ips.ip==str(thing)).distinct())
+        users = killtuple(Session.query(ips.user).order_by(ips.ip).filter(ips.ip==str(thing)).distinct())
         for user in users:
             list_ips.append([user,killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())])
         return list_ips
@@ -104,10 +104,16 @@ def list_test(time):
     newest=max(deltime)
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
-@app.route('/ssh_rank/users')
-def all_user():
-    users=killtuple(Session.query(ips.user).order_by(ips.user).distinct())
-    return render_template('all_users.html',users=users, subhead='userlist')
+@app.route('/ssh_rank/users/<sort>')
+def all_user(sort):
+    if sort == 'letter':
+        users=killtuple(Session.query(ips.user).order_by(ips.user).distinct())
+        return render_template('all_users.html',users=users, subhead='userlist')
+    elif sort == 'attempts':
+        users=[(user,total) for user, total in Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all() if total > 5]
+        return render_template('users_sort_by_total.html',subhead='userlist',users=users)
+    else:
+        return render_template('404.html'),404
 
 
 @app.route('/ssh_rank/ip_info/<ip>')
@@ -120,7 +126,7 @@ def ip_info(ip):
     else:
         return render_template('404.html'),404
 
-@app.route('/ssh_rank/users/<user>')
+@app.route('/ssh_rank/user/<user>')
 def userpage(user):
     users = killtuple(Session.query(ips.user).distinct())
     if str(user) in users:
@@ -163,4 +169,4 @@ def page404(e):
     return render_template('404.html'),404
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',debug=False)
+    app.run(host='0.0.0.0',debug=False, port=80)

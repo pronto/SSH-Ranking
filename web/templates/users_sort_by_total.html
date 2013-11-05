@@ -1,0 +1,19 @@
+{% include 'header.html' %}
+<div style="width:500px;margin-left:auto;margin-right:auto">
+<table class='gridtable' align='center'>
+    
+    <tr>
+        <th>User</th>
+        <th>Attempts</th>
+    </th>
+
+    {% set tableid=cycler('table2','table1') %}
+
+{% for user in users -%}
+<tbody id='{{tableid.next()}}'>
+    <tr>
+        <td><a id='footer' href="/ssh_rank/users/{{user[0]}}">{{user[0]}}</a></td>
+            <td>{{user[1]}}
+                {% endfor -%}
+        </table></div>
+{% include 'footer.html' %}
