@@ -1,8 +1,8 @@
 {% include 'header.html' %}
-{% for user,userlist in users|groupby(0) -%}
-<h3>{{ user }} </h3>
+{% for letter,userlist in users|groupby(0) -%}
+<h3>{{ letter }}: </h3>
 {% for name in userlist -%}
-<a href="/ssh_rank/users/{{name}}">{{ name }}</a>,
+<a href="/ssh_rank/user/{{name}}">{{ name }}</a>,
 {% endfor -%}
 {% endfor -%}
 

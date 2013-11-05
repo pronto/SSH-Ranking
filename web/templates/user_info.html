@@ -1,5 +1,6 @@
 {% include 'header.html' %}
 <h3>{{user}}</h3>
-<p>IP's that have used this same user name:</p>
-<code>{% for ip in other_ips -%} <a href="/ssh_rank/ip_info/{{ ip }}">{{ ip }} </a>, {% endfor -%}
+<p><a href="/ssh_rank/tree/user/{{ user}}"> tree for {{ user}} </a>
+<p>IP's that have used this user name:</p>
+<code>{% for ip in other_ips -%} <a href="/ssh_rank/ip_info/{{ ip }}">{{ ip }}</a>, {% endfor -%}
 {%include 'footer.html' %}

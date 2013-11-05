@@ -38,7 +38,7 @@
         <td>Users:</td>
         <td colspan="2">{% for user in userlist -%}
                 {% if user[0][0] == rowip -%}
-                <b><a href="/ssh_rank/users/{{ user[1] }}">{{ user[1] }}</a></b>:{{user[2]}}
+                <b><a href="/ssh_rank/user/{{ user[1] }}">{{ user[1] }}</a></b>:{{user[2]}}
                 {% endif -%}
                 {% endfor -%} 
         </td>
