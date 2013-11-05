@@ -4,7 +4,7 @@
 <pre>
 {% for user_batch in users|batch(15) -%} 
 {% for user in user_batch -%}
-<b><a href="/ssh_rank/users/{{user[0]}}">{{ user[0] }}</a></b>:{{user[1]-}}, {% endfor %}
+<b><a href="/ssh_rank/user/{{user[0]}}">{{ user[0] }}</a></b>:{{user[1]-}}, {% endfor %}
 {% endfor -%}
 </pre>
 <p> dates/times attempted:</p><pre>
