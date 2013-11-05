@@ -3,7 +3,7 @@
     <head>
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <title>SSHranking</title>
+        <title>SSHRanking</title>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='new.css') }}">
     </head>
 
@@ -27,6 +27,10 @@ About this website.
 IP info for {{ ip }}
 {% elif subhead == 'users' -%}
 Info page for {{ user }}
+{% elif subhead == 'userlist' -%}
+List of all attempted users
+{% elif subhead == 'tree' -%}
+Tree list for {{ ip }}{{ user}}
 {% else -%}
 404'd
 {% endif %}
@@ -34,11 +38,14 @@ Info page for {{ user }}
 
 <div id="roundbar-grey">
     <ul>
-        <li class="active"><a href="/ssh_rank/lists/all">All Time</a></li>
+        <li class="active"><a href="/ssh_rank/lists/all">{All Time</a></li>
         <li class="active"><a href="/ssh_rank/lists/week">7 days</a></li>
-        <li class="active"><a href="/ssh_rank/lists/30day">30 days</a></li>
-        <li class="active"><a href="/about">About.</a></li>
-        <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo</a></li>
+        <li class="active"><a href="/ssh_rank/lists/30day">30 days}</a></li>
+        <li class="active"><a href="/ssh_rank/users/letter">{All Users</a></li>
+        <li class="active"><a href="/ssh_rank/users/attempts">users by total}</a></li>
+        <li class="active"><a href="/about">{About</a></li>
+        <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo}</a></li>
     </ul>
 </div>
 <div id="box">
+<p id='noticebox' align=center>note: you might have to ctrl-F5 to update the CSS</p>
