@@ -1,4 +1,5 @@
 {% include 'header.html' %}
+<a href="/ssh_rank/tree/ip/{{ip}}">Tree view for {{ ip }}</a>
 <p>Attempted users: </p>
 <pre>
 {% for user_batch in users|batch(15) -%} 
