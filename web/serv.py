@@ -31,6 +31,22 @@ def killtuple(lista):
         listb.append(a[0])
     return listb
 
+#im not even sure wtf im doing...neat i think?
+def tree_finder(type,thing):
+    #lets just do it with start from ip
+     if type == 'ip':
+        list_ips=[]
+        #make sure its a real ip...
+        uniq_ips=killtuple(Session.query(ips.ip).distinct())
+        if thing in uniq_ips:
+            #get the users
+            users = killtuple(Session.query(ips.user).filter(ips.ip==str(thing)).distinct())
+            for user in users:
+                list_ips.append([user,killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())])
+            return list_ips
+        else:
+            return 'nope'
+
 app=Flask(__name__)
 #app.debug=True
 
@@ -107,6 +123,16 @@ def testuser(user):
     if ',' in user:
         user_list= user.split(",")
         return render_template("test.user.html",user_list=user_list)
+
+@app.route('/ssh_rank/tree/<ttype>/<thing>')
+def tree(ttype,thing):
+    if ttype == 'ip':
+        return render_template('tree.html', subhead='tree',tree=tree_finder('ip',str(thing)), ip=str(thing))
+    else:
+        return render_template('404.html'),404
+
+
+
 
 @app.route('/about')
 def about():
