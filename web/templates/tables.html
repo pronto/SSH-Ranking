@@ -12,7 +12,9 @@
     {% set rowip = ip[0] -%}
 <tbody id='{{tableid.next()}}'>
     <tr>
-        <td><b><a href="/ssh_rank/ip_info/{{ ip[0]}}">{{ ip[0] }}</a></b> </td>
+        <td><b><a href="/ssh_rank/ip_info/{{ ip[0]}}">{{ ip[0] }}</a>
+                | <a href="/ssh_rank/tree/ip/{{ ip[0] }}" title="Tree View" >(t)</a>
+        </b> </td>
         <td><b>{{ip[1]}}</b></td>
         <td>      {% for res in alldns -%}
                 {% if res.ip == rowip -%}
