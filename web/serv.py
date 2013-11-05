@@ -53,7 +53,7 @@ def tree_user(user):
     if user in uniq_user:
         iplist = killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())
         for ip in iplist:
-            list_user.append([ip,killtuple(Session.query(ips.user).filter(ips.ip==str(ip)).distinct())])
+            list_user.append([ip,killtuple(Session.query(ips.user).order_by(ips.user).filter(ips.ip==str(ip)).distinct())])
         return list_user
     else:
         return 'nope'
