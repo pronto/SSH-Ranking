@@ -31,6 +31,8 @@ Info page for {{ user }}
 List of all attempted users
 {% elif subhead == 'tree' -%}
 Tree list for {{ ip }}{{ user}}
+{% elif subhead == '2pip' %}
+users with 2+ IP's
 {% else -%}
 404'd
 {% endif %}
@@ -42,7 +44,8 @@ Tree list for {{ ip }}{{ user}}
         <li class="active"><a href="/ssh_rank/lists/week">7 days</a></li>
         <li class="active"><a href="/ssh_rank/lists/30day">30 days}</a></li>
         <li class="active"><a href="/ssh_rank/users/letter">{All Users</a></li>
-        <li class="active"><a href="/ssh_rank/users/attempts">users by total}</a></li>
+        <li class="active"><a href="/ssh_rank/users/attempts">Users/Total</a></li>
+        <li class="active"><a href="/ssh_rank/user2p">Users/#of IPs}</a></li>
         <li class="active"><a href="/about">{About</a></li>
         <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo}</a></li>
     </ul>
