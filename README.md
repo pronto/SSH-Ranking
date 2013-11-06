@@ -4,7 +4,7 @@ SSH-Ranking
 SSH Ranking system! :D (re-write of ssh-fail-watcher)
 
 
-web-ui (when working) at: http://vps3.pronto185.com:5000/ )
+web-ui (when working) at: http://vps3.pronto185.com:5000/
 
 this script will take you auth logs and toss them in sql, then watch authlog for new things
 then ranks them with other things
