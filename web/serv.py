@@ -45,7 +45,8 @@ def tree_finder(thing):
         return list_ips
     else:
         return 'nope'
-
+def getlen(user):
+    return len(killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct()))
 
 def tree_user(user):
     list_user=[]
@@ -110,7 +111,7 @@ def all_user(sort):
         users=killtuple(Session.query(ips.user).order_by(ips.user).distinct())
         return render_template('all_users.html',users=users, subhead='userlist')
     elif sort == 'attempts':
-        users=[(user,total) for user, total in Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all() if total > 5]
+        users=[(user,total) for user, total in Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all() if total > 1]
         return render_template('users_sort_by_total.html',subhead='userlist',users=users)
     else:
         return render_template('404.html'),404
@@ -159,6 +160,12 @@ def tree(ttype,thing):
         return render_template('404.html'),404
 
 
+@app.route('/ssh_rank/user2p')
+def userp2p():
+    users=Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all()
+    users2=[user for user, total in users if total > 2]
+    users3=[(userblarg,getlen(userblarg)) for userblarg in users2 if getlen(userblarg) >2]
+    return render_template('users_with_2p_ip.html',subhead='2pip',users=users3)
 
 @app.route('/about')
 def about():
