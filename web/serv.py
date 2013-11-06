@@ -165,6 +165,7 @@ def userp2p():
     users=Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all()
     users2=[user for user, total in users if total > 2]
     users3=[(userblarg,getlen(userblarg)) for userblarg in users2 if getlen(userblarg) >2]
+    users3.sort(key=lambda tup: tup[1],reverse=True)
     return render_template('users_with_2p_ip.html',subhead='2pip',users=users3)
 
 @app.route('/about')
@@ -174,6 +175,11 @@ def about():
 @app.errorhandler(404)
 def page404(e):
     return render_template('404.html'),404
+
+@app.route('/ping')
+def pong():
+    return 'pong'
+
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',debug=False, port=80)
