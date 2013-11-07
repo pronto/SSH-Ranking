@@ -176,6 +176,11 @@ def about():
 def page404(e):
     return render_template('404.html'),404
 
+
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
+
 @app.route('/ping')
 def pong():
     return 'pong'
