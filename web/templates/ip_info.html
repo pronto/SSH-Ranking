@@ -8,7 +8,7 @@ year:mon<br>
 {% for month, month_list in year_group|groupby('month') -%}
 {{year}}:{{month}}
 {% for day , day_list in month_list|groupby('day') -%}
-------->{{day}} -  {{day_list|count}}
+------->{{'%03s' % day}} -  {{'%05s' % day_list|count}}
 {%endfor-%}
 {% endfor -%}
 {%endfor -%}
