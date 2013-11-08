@@ -1,4 +1,5 @@
-<!doctype html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+
 <html>
     <head>
 
@@ -8,9 +9,11 @@
     </head>
 
     <body>
-        <div id="topLogo"><img src="{{ url_for('static', filename='logo.png') }}" height=100></div>
+        <div id="topLogoRight"><img src="{{ url_for('static', filename='logo.png') }}" height=100></div>
+
+        <div id="topLogo"><a target="_blank" href="http://en.wikipedia.org/wiki/Peter_Sellers#The_Millionairess.2C_Lolita.2C_The_Pink_Panther_and_divorce_.281960.E2.80.9363.29"><img src="{{ url_for('static', filename='Peter_Sellers.jpg') }}" height=100></a></div>
         <h1>SSH Ranking!</h1>
-<h2>
+        <h2>
 {% if subhead == 'all' -%}
 All time
 {% elif subhead == 'week' -%}
@@ -45,7 +48,7 @@ users with 2+ IP's
         <li class="active"><a href="/ssh_rank/lists/30day">30 days}</a></li>
         <li class="active"><a href="/ssh_rank/users/letter">{All Users</a></li>
         <li class="active"><a href="/ssh_rank/users/attempts">Users/Total</a></li>
-        <li class="active"><a href="/ssh_rank/user2p">Users/#of IPs}</a></li>
+        <li class="active"><a title="This page is going to be slow loading" href="/ssh_rank/user2p">Users/#of IPs}</a></li>
         <li class="active"><a href="/about">{About</a></li>
         <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo}</a></li>
     </ul>

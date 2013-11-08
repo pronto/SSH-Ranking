@@ -31,9 +31,29 @@ h3{
     font-size:23pt;
 }
 #topLogo {float:left;margin-top:0px;margin-left:10px;}
+#topLogoRight {float:right;margin-top:0px;margin-right:10px;}
+
 #footer{
     text-align:center;
 }
+
+#leftbar {
+    width:300px;
+    float:left;
+}
+#content {
+    margin-left:300px;
+}
+
+#box{
+   width:99%;
+    background:#373739;
+    padding:10px;
+    margin-left:auto;
+    margin-right:auto;
+    clear:both;
+}
+
 
 #footer a{
 
@@ -52,6 +72,9 @@ h3{
     margin:1px;
     margin-right:auto;
     margin-left:auto;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+ 
 }
 
 p {
@@ -69,24 +92,13 @@ pre {
     white-space: -o-pre-wrap; 
     height:1%;
     width: auto;
-    display: block;
+    display: inline-block;
     clear: both;
     color: #6E6E6E;
     padding: 1em 1em;
-    margin: auto 40px auto 40px;
     background: black;
     border: solid 1px #e1e1e1
 } 
-
-#box{
-   width:99%;
-    background:#373739;
-    padding:10px;
-    margin-left:auto;
-    margin-right:auto;
-    clear:both;
-}
-
 #text{
     padding:5px;
     color:green;

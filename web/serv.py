@@ -86,7 +86,7 @@ def list_test(time):
         lastweek=datetime.today()-timedelta(30)
         uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     elif time == '24hr':
-        lastweek=datetime.today()-timedelta(3)
+        lastweek=datetime.today()-timedelta(1)
         uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     else:
         return render_template('404.html'),404
@@ -176,7 +176,7 @@ def about():
 def page404(e):
     return render_template('404.html'),404
 
-
+@app.route('/temp.php')
 @app.route('/robots.txt')
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])

@@ -1,15 +1,9 @@
 {% include 'header.html' %}
-<a href="/ssh_rank/tree/ip/{{ip}}">Tree view for {{ ip }}</a>
-<p>Attempted users: </p>
+<div id="leftbar">
+    <p> dates/times attempted:</p><p>.</p>
 <pre>
-{% for user_batch in users|batch(15) -%} 
-{% for user in user_batch -%}
-<b><a href="/ssh_rank/user/{{user[0]}}">{{ user[0] }}</a></b>:{{user[1]-}}, {% endfor %}
-{% endfor -%}
-</pre>
-<p> dates/times attempted:</p><pre>
 year:mon<br>
---------> day - attempts that day<br>
+--------> day - attemps/day<br>
 {% for year, year_group in dates|groupby('year') -%}
 {% for month, month_list in year_group|groupby('month') -%}
 {{year}}:{{month}}
@@ -19,4 +13,17 @@ year:mon<br>
 {% endfor -%}
 {%endfor -%}
 </pre>
+</div>
+
+
+
+
+<div id="content">
+    <p><a href="/ssh_rank/tree/ip/{{ip}}">Tree view for {{ ip }}</a></p>
+<p>Attempted users: </p>
+<pre>
+{% for user in users-%} 
+<b><a href="/ssh_rank/user/{{user[0]}}">{{ user[0] }}</a></b>:{{user[1]-}}, {% endfor -%}
+</pre>
+</div>
 {% include 'footer.html' %}
