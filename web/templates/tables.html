@@ -21,11 +21,10 @@
                     {% if res.good != '-' %}
                         <b>{{res.rdns}} </b>is  
                         {% if res.good == 'good' -%}
-                            <font color='green'>
+                        <font color='green'><b>Forward-confirmed</b>
                         {% else -%}
-                            <font color='#8B0000'>
+                        <font color='#8B0000'><b>unconfirmed</b>
                         {% endif -%}
-                        <b> {{ res.good }}</b>
                             </font>
                     {% endif -%}
                 {% endif -%}
