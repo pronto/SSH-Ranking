@@ -26,6 +26,7 @@ mysqlpass=par.get("sshrank","mysqlpass")
 arg=argparse.ArgumentParser()
 arg.add_argument('-f', action='store', dest='firstrun', default='off', help='set first run(default off), do -f on')
 arg.add_argument('-w', action='store', dest='watch', default='off', help='set to start watching (default off), do -w on')
+arg.add_argument('-r', action='store', dest='resume', default='off', help='if you\'ve already done -f and -w, and some reason stopped it, use -r on to have it resume. note: probably wont work if log rotate went')
 year="2013"
 
 
@@ -97,6 +98,17 @@ if argres.firstrun == "on":
         end_time = time.time()
         print("Elapsed time was %g seconds" % (end_time - start_time))
 
+if argres.resume == 'on':
+    print "Resuming from last:"
+    last=Session.query(ips).order_by(ips.pk.desc()).first() 
+    print "\tlast entry is:" +str(last)
+    print "\t "+str(last.dtime)
+    for line in openfile('/var/log/auth.log'):
+        if "Failed password for invalid user" in line:
+            data=datafromline(line,year)
+            #now take the last attempt in DB date; and if the line is newer, add to DB
+            if datetime.strptime(data[2],'%Y-%m-%d %H:%M:%S') > last.dtime:
+                insertsql(data)
 
 
 if argres.watch == "on":
@@ -106,6 +118,7 @@ if argres.watch == "on":
     for line in loglines:
         if "Failed password for invalid user" in line:
             data=datafromline(line,year)
+            print str(data)
             #Process(target=insertsql,args=(data,)).start()
             insertsql(data)
 
