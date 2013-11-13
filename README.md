@@ -30,7 +30,7 @@ watch for new things               YES
 should still work on other distros; you just wont be able to blindly follow this
 $ cat /etc/debian_version 
 7.2
-
+```
 user@debian:~$ su
 Password: 
 root@debian:/home/user# apt-get install git python-pip mysql-server python-mysqldb 
@@ -46,10 +46,12 @@ root@debain:/ # easy_install flask-sqlalchemy
 >Installed /usr/local/lib/python2.7/dist-packages/MarkupSafe-0.18-py2.7.egg
 Finished processing dependencies for flask-sqlalchemy
 root@debain:/ # 
-
+```
 
 
 ###set up mysql part
+
+```
 root@debian:/# mysql -p
 >Enter password: 
 
@@ -64,7 +66,7 @@ mysql&#62; GRANT ALL PRIVILEGES ON db_sshrank.* TO sshrank@localhost;
 
 mysql> exit
 Bye
-
+```
 
 ### now for git/pythong/andmoresql
 
