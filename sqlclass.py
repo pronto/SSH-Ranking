@@ -30,7 +30,7 @@ class ips(Base):
 class rdns(Base):
     __tablename__= 'rdns_tbl'
     pk = Column(Integer,Sequence('pk'), primary_key=True)
-    ip = Column(VARCHAR(20)
+    ip = Column(VARCHAR(20))
     rdns = Column(TEXT)
     good = Column(VARCHAR(20))
     dtime = Column(DATETIME)
