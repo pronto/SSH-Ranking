@@ -34,6 +34,7 @@ print pwd.getpwuid(os.getuid())[0]
 if userneed != pwd.getpwuid(os.getuid())[0]:
     print "please run as "+userneed
     sys.exit(1)
+
 def datafromline(line,year):
     #returns [date, user, ip]
     returnlist=[]
@@ -41,18 +42,13 @@ def datafromline(line,year):
     date=l[0]+" "+l[1]+" "+year+" "+l[2] #Sep 4 2013 19:31:55
     date=datetime.strptime(date,"%b %d %Y %H:%M:%S")
     date=date.strftime('%Y-%m-%d %H:%M:%S')
-    returnlist.append(l[12])
-    returnlist.append(l[10])
+    user=line[line.find("user ")+5:line.find(" from")]
+    ip=line[line.find("from ")+5:line.find(" port")]
+    returnlist.append(user)
+    returnlist.append(ip)
     returnlist.append(date)
     return returnlist
 
-#def insertsql(i):
-    #give this the info from datafromeline
-    #con =MySQLdb.connect(mysqlserv,mysqluser,mysqlpass,"db_sshrank")
-    #x=con.cursor()
-    #x.execute("""INSERT INTO ips_alc (ip,USER,datetime) VALUES (%s, %s, %s) """,(i[0],i[1],i[2]))
-    #con.commit()
-    #con.close()
 
 def insertsql(i):
     user=ips(i[0],i[1],i[2])
