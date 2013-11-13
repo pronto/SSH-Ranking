@@ -141,12 +141,18 @@ those four entries are just test ones i did
 the very last line on  web/serv.py you might need to edit if you dont want to run the web script as root
 ```python
     app.run(host='0.0.0.0',debug=False, port=80)
-    ```
+```
+
+
     just get rid of the ', port=80' part
 
 
     this should also be run under screen/tmux
-
+```
+user@debian:~/git/SSH-Ranking$ cp sqlclass.py web
+user@debian:~/git/SSH-Ranking$ python web/serv.py 
+ * Running on http://0.0.0.0:5000/
+```
 
     now if you get all this you sould be able to go to http://<ip of serve>:<port>
     eg http://127.0.0.1:5000/
