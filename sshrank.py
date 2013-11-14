@@ -44,8 +44,8 @@ def datafromline(line,year):
     date=date.strftime('%Y-%m-%d %H:%M:%S')
     user=line[line.find("user ")+5:line.find(" from")]
     ip=line[line.find("from ")+5:line.find(" port")]
-    returnlist.append(user)
     returnlist.append(ip)
+    returnlist.append(user)
     returnlist.append(date)
     return returnlist
 
