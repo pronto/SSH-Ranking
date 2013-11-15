@@ -99,6 +99,7 @@ Python 2.7.3 (default, Jan  2 2013, 13:56:14)
 [GCC 4.7.2] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
 >>> from sqlclass import *
+>>> Base.metadata.create_all(eng)
 >>> exit
 ```
 
