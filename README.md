@@ -27,7 +27,7 @@ watch for new things               YES
 
 # Installation Instructions
 ## Debian/Ubuntu
-### This was made on Linux debian 3.2.0-4-amd64 #1 SMP Debian 3.2.51-1 x86_64 GNU/Linux
+This was made on Linux debian 3.2.0-4-amd64 #1 SMP Debian 3.2.51-1 x86_64 GNU/Linux
 should still work on other distros; you just won't be able to blindly follow this readme.
 $ cat /etc/debian_version 
 7.2
@@ -50,7 +50,7 @@ root@debian:/ #
 ```
 
 ## Red Hat/CentOS/Fedora
-### This was tested on CentOS 6.4 minimal but should work with all version 6 branches. Version 5.x may take some tweaking to make it work.
+This was tested on CentOS 6.4 minimal but should work with all version 6 branches. Version 5.x may take some tweaking to make it work.
 
 Install required packages
 ```
@@ -95,7 +95,7 @@ Bye
 
 ```
 
-### SSH-Rank Configuration and Download
+## SSH-Rank Configuration and Download
 Clone SSH-Rank directly from github or download to your system via the project website
 
 ```
@@ -167,7 +167,7 @@ mysql> exit;
 
 ```
 
-## Now you should be able to start watching!
+## Run SSH-Rank
 For the moment you have to run sshrank.py under a utility like tmux or screen. 
 Screen is probably in your package manager; simply run apt-get install screen if you're on a Debian-based distribution or yum install screen for Red Hat. 
 You can download tmux from http://tmux.sourceforge.net/
