@@ -5,19 +5,24 @@ from datetime import datetime,timedelta
 from datetime import date as ddate
 from ConfigParser import SafeConfigParser
 par = SafeConfigParser()
-#will be /etc/ssh-rank.ini or whereever you want it
-par.read(os.getcwd()+"/config.ini")
+#will be /etc/ssh-rank.ini or where ever you want it
+par.read(os.getcwd()+"/config.conf")
 from flask.ext.sqlalchemy import SQLAlchemy
 import code
 
+debug=par.get("sshrank","debugging")
+webUI_port=par.get("web","webUI_port")
+sqlclassPath=par.get("sshrank","sqlclassPath")
+sys.path.append(sqlclassPath)
+
 from sqlclass import *
 
-mysqluser=par.get("sshrank","mysqluser")
-mysqlserv=par.get("sshrank","mysqlserv")
-mysqlpass=par.get("sshrank","mysqlpass")
-user_cnt=int(par.get("sshrank","user_cnt"))
-total_ip=par.get("sshrank","total_ip")
-stats_ip=par.get("sshrank","stats_ip")
+mysqluser=par.get("sql","sqluser")
+mysqlserv=par.get("sql","sqlserv")
+mysqlpass=par.get("sql","sqlpass")
+user_cnt=int(par.get("web","user_cnt"))
+total_ip=par.get("web","total_ip")
+stats_ip=par.get("web","stats_ip")
 socket.setdefaulttimeout(3)
 
 
@@ -61,6 +66,8 @@ def tree_user(user):
 
 app=Flask(__name__)
 #app.debug=True
+if debug == 1:
+    app.debug=True
 
 #date=Session.query(ips.dtime).filter(ips.ip==a[0]).order_by(-ips.pk).limit(1).scalar()
 #date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
@@ -187,4 +194,4 @@ def pong():
 
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',debug=False, port=80)
+    app.run(host='0.0.0.0',debug=debug,port=(int(webUI_port)))

@@ -13,20 +13,20 @@ except ImportError as exc:
 
 par = SafeConfigParser()
 #will be /etc/ssh-rank.ini or whereever you want it
-par.read(os.getcwd()+"/config.ini")
+par.read(os.getcwd()+"/config.conf")
 
-authlog=par.get("sshrank","authlogpath")
-authname=par.get("sshrank","authname")
-userneed=par.get("sshrank","userneed")
+logpath=par.get("logs","authlogpath")
+logname=par.get("logs","logname")
+userneed=par.get("logs","userneed")
 
-mysqluser=par.get("sshrank","mysqluser")
-mysqlserv=par.get("sshrank","mysqlserv")
-mysqlpass=par.get("sshrank","mysqlpass")
+mysqluser=par.get("sql","sqluser")
+mysqlserv=par.get("sql","sqlserv")
+mysqlpass=par.get("sql","sqlpass")
 
 arg=argparse.ArgumentParser()
-arg.add_argument('-f', action='store', dest='firstrun', default='off', help='set first run(default off), do -f on')
-arg.add_argument('-w', action='store', dest='watch', default='off', help='set to start watching (default off), do -w on')
-arg.add_argument('-r', action='store', dest='resume', default='off', help='if you\'ve already done -f and -w, and some reason stopped it, use -r on to have it resume. note: probably wont work if log rotate went')
+arg.add_argument('-f', action='store', dest='firstrun', default='off', help='set "first run" to on (default off), do: -f on')
+arg.add_argument('-w', action='store', dest='watch', default='off', help='set "start watching" to on (default off), do: -w on')
+arg.add_argument('-r', action='store', dest='resume', default='off', help='if you\'ve already done -f and -w, and some reason stopped it, use -r on to have it resume. note: probably won\'t work if log rotate went')
 year="2013"
 
 
@@ -74,11 +74,11 @@ def follow(thefile):
 
 argres = arg.parse_args()
 if argres.firstrun == "on":
-    print "doing 1st run! yay!"
+    print "Initiating first run ..."
     log_list=[]
-    for files in os.listdir(authlog):
-        if authname in files:
-            log_list.append(authlog+files)
+    for files in os.listdir(logpath):
+        if logname in files:
+            log_list.append(logpath+files)
 
     #we gonna need to loooooopdaloop the files :3
     #i'll deal with gzip'd
@@ -99,7 +99,7 @@ if argres.resume == 'on':
     last=Session.query(ips).order_by(ips.pk.desc()).first() 
     print "\tlast entry is:" +str(last)
     print "\t "+str(last.dtime)
-    for line in openfile('/var/log/auth.log'):
+    for line in openfile(logpath+logname):
         if "Failed password for invalid user" in line:
             data=datafromline(line,year)
             #now take the last attempt in DB date; and if the line is newer, add to DB
@@ -109,13 +109,10 @@ if argres.resume == 'on':
 
 if argres.watch == "on":
     print "\n\n==========Now Watching the logfile========"
-    #later to just be a var or something, but meh
-    loglines=follow(open("/var/log/auth.log"))
+    loglines=follow(open(logpath+logname))
     for line in loglines:
         if "Failed password for invalid user" in line:
             data=datafromline(line,year)
             print str(data)
             #Process(target=insertsql,args=(data,)).start()
             insertsql(data)
-
-

@@ -1,15 +1,26 @@
 #classes
 
 import sqlalchemy
+from ConfigParser import SafeConfigParser
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func
+
+# Config files! Yay!
+config = SafeConfigParser()
+config.read('config.conf')
+
+sqlserver = config.get('sql', 'sqlserv')
+sqlservertype = config.get('sql', 'sqlservertype')
+sqluser = config.get('sql', 'sqluser')
+sqlpass = config.get('sql', 'sqlpass')
+
 Base = declarative_base()
-eng = sqlalchemy.create_engine('mysql://sshrank:blargpass@localhost')
+query_string = sqlservertype + '://' + sqluser + ':' + sqlpass + '@' + sqlserver
+eng = sqlalchemy.create_engine(query_string)
 eng.execute("USE db_sshrank")
 eng.execute("select 1").scalar()
 Session =sqlalchemy.orm.sessionmaker(bind=eng)
 Session = Session()
-
 
 class ips(Base):
     __tablename__ = 'ips_alc2'
@@ -25,7 +36,6 @@ class ips(Base):
 
     def __repr__(self):
         return "<ip('%s','%s', '%s')>" % (self.ip, self.user, self.dtime)
-
 
 class rdns(Base):
     __tablename__= 'rdns_tbl'
