@@ -13,7 +13,7 @@ except ImportError as exc:
 
 par = SafeConfigParser()
 #will be /etc/ssh-rank.ini or whereever you want it
-par.read(os.getcwd()+"/config.conf")
+par.read(os.getcwd()+"/config.ini")
 
 logpath=par.get("logs","authlogpath")
 logname=par.get("logs","logname")

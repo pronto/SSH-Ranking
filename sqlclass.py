@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,f
 
 # Config files! Yay!
 config = SafeConfigParser()
-config.read('config.conf')
+config.read('config.ini')
 
 sqlserver = config.get('sql', 'sqlserv')
 sqlservertype = config.get('sql', 'sqlservertype')

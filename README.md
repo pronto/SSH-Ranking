@@ -112,7 +112,7 @@ user@debian:~/git/SSH-Ranking$
 
 ```
 
-Now edit config.conf <br />
+Now edit config.ini <br />
 Change sqlclassPath variable to match where you downloaded SSH-Rank. Include the trailing /
 
 ```
@@ -190,7 +190,7 @@ Those four entries are tests I did. As users try to connect with incorrect passw
 
 
 ## WebUI Setup
-To run the web server portion, you can either run it on port 80 as root (not really recommended) or you can run it on an unprivileged port (default is port 5000). Change this in config.conf to suit your needs
+To run the web server portion, you can either run it on port 80 as root (not really recommended) or you can run it on an unprivileged port (default is port 5000). Change this in config.ini to suit your needs
 
 ```
 webUI_port=5000

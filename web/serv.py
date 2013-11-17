@@ -6,7 +6,7 @@ from datetime import date as ddate
 from ConfigParser import SafeConfigParser
 par = SafeConfigParser()
 #will be /etc/ssh-rank.ini or where ever you want it
-par.read(os.getcwd()+"/config.conf")
+par.read(os.getcwd()+"/config.ini")
 from flask.ext.sqlalchemy import SQLAlchemy
 import code
 
