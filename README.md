@@ -14,6 +14,8 @@ NOTE: changed length of the ip column; if you already had mysql going; do this:
 ```
  ALTER TABLE ips_alc2 MODIFY ip VARCHAR(39);
 ALTER TABLE rdns_tbl MODIFY ip VARCHAR(39);
+
+```
 status:
 <pre>
 Get info from auth.log.*           YES
