@@ -24,7 +24,7 @@ Session = Session()
 
 class ips(Base):
     __tablename__ = 'ips_alc2'
-    ip = Column(VARCHAR(20))
+    ip = Column(VARCHAR(39))
     user = Column(TEXT)
     dtime = Column(DATETIME)
     pk = Column(Integer,Sequence('pk'), primary_key=True)
@@ -40,7 +40,7 @@ class ips(Base):
 class rdns(Base):
     __tablename__= 'rdns_tbl'
     pk = Column(Integer,Sequence('pk'), primary_key=True)
-    ip = Column(VARCHAR(20))
+    ip = Column(VARCHAR(39))
     rdns = Column(TEXT)
     good = Column(VARCHAR(20))
     dtime = Column(DATETIME)
