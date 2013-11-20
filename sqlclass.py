@@ -54,6 +54,21 @@ class rdns(Base):
     def __repr__(self):
         return "<rdns('%s','%s','%s','%s')>" % (self.ip, self.rdns, self.good, self.dtime)
 
+class portscan(Base):
+    __tablename__ = 'portscan'
+    pk = Column(Integer,Sequence('pk'), primary_key=True)
+    ip = Column(VARCHAR(39))
+    dtime = Column(DATETIME) #because we're keeping a log and gonna update it every so often.bro :D
+    portres = Column(TEXT)    #probbaly gonna be just a list.... @_@  [(80,'open'),(443,'open')]   the ports are defined in config filei
+
+    def __init__(sef, ip, dtime, portres):
+        self.ip = ip
+        self.dtime = dtime
+        self.portres = portres
+
+    def __repr__(self):
+        return "<portres('%s','%s','%s')>" % (self.ip, self.dtime, self.portres)
+
 
 
 #from sqlclass import *
