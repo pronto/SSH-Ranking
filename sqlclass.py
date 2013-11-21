@@ -3,7 +3,7 @@
 import sqlalchemy
 from ConfigParser import SafeConfigParser
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func
+from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func,Boolean
 
 # Config files! Yay!
 config = SafeConfigParser()
@@ -54,23 +54,33 @@ class rdns(Base):
     def __repr__(self):
         return "<rdns('%s','%s','%s','%s')>" % (self.ip, self.rdns, self.good, self.dtime)
 
-class portscan(Base):
-    __tablename__ = 'portscan'
+
+class ScanIP(Base):
+    __tablename__='ScanIP'
     pk = Column(Integer,Sequence('pk'), primary_key=True)
     ip = Column(VARCHAR(39))
-    dtime = Column(DATETIME) #because we're keeping a log and gonna update it every so often.bro :D
-    portres = Column(TEXT)    #probbaly gonna be just a list.... @_@  [(80,'open'),(443,'open')]   the ports are defined in config filei
 
-    def __init__(sef, ip, dtime, portres):
+    def __init__(self,ip):
         self.ip = ip
-        self.dtime = dtime
-        self.portres = portres
 
     def __repr__(self):
-        return "<portres('%s','%s','%s')>" % (self.ip, self.dtime, self.portres)
+        return "<ScapIP('%s')>" % (self.ip)
 
+class ScanPort(Base):
+    __tablename__='ScanPort'
+    pk = Column(Integer,Sequence('pk'), primary_key=True)
+    ip_pk= Column(Integer, ForeignKey('ScanIP.pk'))
+    portnum = Column(VARCHAR(5))
+    dtime = Column(DATETIME)
+    state = Column(Boolean)
 
+    def __init__(self, portnum, dtime, state):
+        self.portnum = portnum
+        self.dtime = dtime
+        self.state = state
 
+    def __repr__(self):
+        return "<ScapIP('%s','%s','%s')>" % (self.portnum, self.dtime, self.state)
 #from sqlclass import *
 #a=ips('127.0.0.1', 'jkldj', '2013-10-28 15:10:51')
 #Session.add(a)
