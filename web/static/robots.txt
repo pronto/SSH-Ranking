@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /ssh-rank/*
+Disallow: /ssh_rank/*

@@ -1,7 +1,8 @@
 {% include 'header.html' %}
 <div style="width:500px;margin-left:auto;margin-right:auto">
+
+<p>Every user listed by attempts, where attempts > 1</p>
 <table class='gridtable' align='center'>
-    
     <tr>
         <th>User</th>
         <th>Attempts</th>
@@ -13,7 +14,7 @@
 <tbody id='{{tableid.next()}}'>
     <tr>
         <td><a id='footer' href="/ssh_rank/user/{{user[0]}}">{{user[0]}}</a></td>
-            <td>{{user[1]}}
+        <td id=prewrap> {{'%05s' % user[1]}} </td>
                 {% endfor -%}
         </table></div>
 {% include 'footer.html' %}

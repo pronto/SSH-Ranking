@@ -182,8 +182,8 @@ pre {
     /* crap for tables? */
     
     table.gridtable {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
+    font-family: "Courier 10 Pitch", Courier, monospace; 
+    font-size:12px;
     color:#333333;
     border-width: 1px;
     width:99%;
@@ -202,7 +202,14 @@ table.gridtable td {
     padding: 8px;
     border-style: solid;
     border-color: #666666;
+
 }
+#prewrap{
+    white-space: pre; 
+    white-space: pre-wrap; 
+    white-space: -moz-pre-wrap; 
+}
+
 table.gridtable a {
     color:#333333;
 }
