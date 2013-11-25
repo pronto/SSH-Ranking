@@ -16,15 +16,15 @@ par = SafeConfigParser()
 #will be /etc/ssh-rank.ini or whereever you want it
 par.read(os.getcwd()+"/config.ini")
 
-mysqluser=par.get("sshrank","mysqluser")
-mysqlserv=par.get("sshrank","mysqlserv")
-mysqlpass=par.get("sshrank","mysqlpass")
+mysqluser=par.get("sql","sqluser")
+mysqlserv=par.get("sql","sqlserv")
+mysqlpass=par.get("sql","sqlpass")
 
-user_cnt=int(par.get("sshrank","user_cnt"))
-total_ip=par.get("sshrank","total_ip")
-stats_ip=par.get("sshrank","stats_ip")
+user_cnt=int(par.get("web","user_cnt"))
+total_ip=par.get("web","total_ip")
+stats_ip=par.get("web","stats_ip")
 
-rdns_age =int(par.get("sshrank","rdns_age"))
+rdns_age =int(par.get("web","rdns_age"))
 
 def rdns_get(addr):
     try:
