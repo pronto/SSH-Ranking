@@ -62,14 +62,22 @@ def openfile(logfile):
         celery = open(logfile, 'r')
     return celery
 
-def follow(thefile):
+
+def follow(thefile_name):
+    thefile=open(thefile_name)
     thefile.seek(0,2)      # Go to the end of the file
     while True:
-         line = thefile.readline()
-         if not line:
-             time.sleep(0.1)    # Sleep briefly
-             continue
-         yield line
+        line = thefile.readline()
+        test_1= os.path.getsize(thefile_name)
+        if not line:
+            time.sleep(0.1)    # Sleep briefly
+            test_2= os.path.getsize(thefile_name)
+            if test_1 > test_2:
+                thefile.close()
+                thefile=open(thefile_name)
+                thefile.seek(0,2)
+                continue
+        yield line
 
 
 argres = arg.parse_args()
@@ -109,7 +117,7 @@ if argres.resume == 'on':
 
 if argres.watch == "on":
     print "\n\n==========Now Watching the logfile========"
-    loglines=follow(open(logpath+logname))
+    loglines=follow(logpath+logname)
     for line in loglines:
         if "Failed password for invalid user" in line:
             data=datafromline(line,year)
