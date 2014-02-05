@@ -3,7 +3,8 @@
 import sqlalchemy
 from ConfigParser import SafeConfigParser
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func,Boolean
+from sqlalchemy import Column, Integer, String,VARCHAR,TEXT,DATETIME, Sequence,func,Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 
 # Config files! Yay!
 config = SafeConfigParser()
@@ -54,33 +55,35 @@ class rdns(Base):
     def __repr__(self):
         return "<rdns('%s','%s','%s','%s')>" % (self.ip, self.rdns, self.good, self.dtime)
 
-
-class ScanIP(Base):
-    __tablename__='ScanIP'
+class nmapSQL(Base):
+    __tablename__='nmapmysql'
+    #                                       |ignored|         
+    #ip, dtime, port number, State, Protocol, Owner, Service, SunRPC info, Version info
     pk = Column(Integer,Sequence('pk'), primary_key=True)
     ip = Column(VARCHAR(39))
-
-    def __init__(self,ip):
-        self.ip = ip
-
-    def __repr__(self):
-        return "<ScapIP('%s')>" % (self.ip)
-
-class ScanPort(Base):
-    __tablename__='ScanPort'
-    pk = Column(Integer,Sequence('pk'), primary_key=True)
-    ip_pk= Column(Integer, ForeignKey('ScanIP.pk'))
-    portnum = Column(VARCHAR(5))
     dtime = Column(DATETIME)
-    state = Column(Boolean)
-
-    def __init__(self, portnum, dtime, state):
-        self.portnum = portnum
+    portnum = Column(VARCHAR(5))
+    state = Column(VARCHAR(10))
+    proto = Column(VARCHAR(5))
+    service = Column(VARCHAR(39)) 
+    verinfo = Column(TEXT)
+    #                   1   2      3        4       5     6         7
+    def __init__(self, ip, dtime, portnum, state, proto, service, verinfo):
+        self.ip = ip
         self.dtime = dtime
+        self.portnum = portnum
         self.state = state
+        self.proto = proto
+        self.service = service
+        self.verinfo = verinfo
+
 
     def __repr__(self):
-        return "<ScapIP('%s','%s','%s')>" % (self.portnum, self.dtime, self.state)
+        return "<nmapSQL>('%s','%s','%s','%s','%s','%s','%s')>" % ( self.ip, self.dtime, self.portnum, self.state, self.proto, self.service, self.verinfo)
+        #                  1     2   3    4    5    6    7              1      2              3             4         5            6           7 
+
+
+#http://stackoverflow.com/questions/8839211/sqlalchemy-add-child-in-one-to-many-relationship
 #from sqlclass import *
 #a=ips('127.0.0.1', 'jkldj', '2013-10-28 15:10:51')
 #Session.add(a)

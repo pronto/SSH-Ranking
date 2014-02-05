@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python2.7
 from flask import Flask, render_template, send_from_directory, request
 import socket,os,sys
 from datetime import datetime,timedelta
@@ -12,6 +12,7 @@ import code
 
 debug=par.get("sshrank","debugging")
 webUI_port=par.get("web","webUI_port")
+nmap_xml_path=par.get("web","nmap_xml")
 sqlclassPath=par.get("sshrank","sqlclassPath")
 sys.path.append(sqlclassPath)
 
@@ -123,14 +124,32 @@ def all_user(sort):
     else:
         return render_template('404.html'),404
 
-
 @app.route('/ssh_rank/ip_info/<ip>')
 def ip_info(ip):
     iplist=Session.query(ips.ip).distinct().all()
     if any(b[0] == ip for b in iplist):
         users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
         dates=killtuple(Session.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
-        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates)
+        #nmapstuff= Session.query(nmapSQL).filter(nmapSQL.ip==str(ip)).all()
+        nmapstuff= Session.query(nmapSQL.dtime,nmapSQL.portnum,nmapSQL.state,nmapSQL.proto,nmapSQL.service,nmapSQL.verinfo).filter(nmapSQL.ip==str(ip)).all()
+        if nmapstuff == []:
+            hasnmap=False
+        else:
+            hasnmap=True
+        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff)
+    else:
+        return render_template('404.html'),404
+
+@app.route('/ssh_rank/nmap_out/<nfile>')
+def nmapout(nfile):
+    #shows the output of the nmal xml all formatted nicely and stuff
+    #list/link to other nmap files for the same IP
+    nmapfiles=find_nmap_xml('all')
+    if nfile in nmapfiles:
+        showxml=str(open(nmap_xml_path+nfile).readlines())
+        xmlfile="xml/"+nfile
+        return render_template('nmapout.html',subhead='nmap outputs',xmlfile=xmlfile, showxml=showxml)
+        #dothings
     else:
         return render_template('404.html'),404
 
@@ -194,4 +213,4 @@ def pong():
 
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',debug=debug,port=(int(webUI_port)))
+    app.run(host='0.0.0.0',port=(int(webUI_port)), debug=False)

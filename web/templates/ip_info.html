@@ -20,7 +20,21 @@ year:mon<br>
 
 <div id="content">
     <p><a href="/ssh_rank/tree/ip/{{ip}}">Tree view for {{ ip }}</a></p>
-<p>Attempted users: </p>
+    {% if hasnmap == True -%}
+    <p> nmap scans: </p>
+    <font color=gray>
+    <table border="1" width=100%>
+    <tr><th>time</th><th>port#</th><th>state</th><th>proto</th><th>service</th><th>verinfo</th></tr>
+    {% for port in nmapstuff -%}
+    <tr>
+    <td>{{port.dtime}}</td><td>{{port.portnum}}</td><td>{{port.state}}</td>
+    <td>{{port.proto}}</td><td>{{port.service}}</td><td>{{port.verinfo}}</td> 
+    </tr>
+    {% endfor -%}
+    </table>
+</font>
+    {% endif -%}    
+    <p>Attempted users: </p>
 <pre>
 {% for user in users-%} 
 <b><a href="/ssh_rank/user/{{user[0]}}">{{ user[0] }}</a></b>:{{user[1]-}}, {% endfor -%}
