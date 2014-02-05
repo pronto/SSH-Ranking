@@ -27,8 +27,8 @@ argres = arg.parse_args()
 #def insert_portsql(ip,dtime,portnum,state,proto,service,verinfo):
 def insert_portsql(insertline):
     # nmapinsert=nmapSQL(ip,dtime,portnum,state,proto,service,verinfo)
-    Session.add(nmapinser)
-    Session.commit()
+    sqlsess.add(nmapinser)
+    sqlsess.commit()
 
 
 gnmap=open(argres.nfile, 'r').readlines()
@@ -53,5 +53,5 @@ for a in nsplit:
         #                   ip  time  port# state proto serv   ver
         #                   1    2     3     4     5     6       7
         #print insertstuff
-        Session.add(insertstuff)
-Session.commit()
+        sqlsess.add(insertstuff)
+sqlsess.commit()

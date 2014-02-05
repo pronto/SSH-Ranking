@@ -28,7 +28,7 @@ socket.setdefaulttimeout(3)
 
 
 def getlastattempt(ip):
-    Session.query(ips.datetime).filter(ips.ip==ip).order_by(-ips.pk).limit(1).scalar()
+    sqlsess.query(ips.datetime).filter(ips.ip==ip).order_by(-ips.pk).limit(1).scalar()
     date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
     return date.strftime('%Y-%m-%d %H:%M:%S')
 def killtuple(lista):
@@ -42,25 +42,25 @@ def tree_finder(thing):
     #lets just do it with start from ip
     list_ips=[]
     #make sure its a real ip...
-    uniq_ips=killtuple(Session.query(ips.ip).distinct())
+    uniq_ips=killtuple(sqlsess.query(ips.ip).distinct())
     if thing in uniq_ips:
         #get the users
-        users = killtuple(Session.query(ips.user).order_by(ips.ip).filter(ips.ip==str(thing)).distinct())
+        users = killtuple(sqlsess.query(ips.user).order_by(ips.ip).filter(ips.ip==str(thing)).distinct())
         for user in users:
-            list_ips.append([user,killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())])
+            list_ips.append([user,killtuple(sqlsess.query(ips.ip).filter(ips.user==str(user)).distinct())])
         return list_ips
     else:
         return 'nope'
 def getlen(user):
-    return len(killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct()))
+    return len(killtuple(sqlsess.query(ips.ip).filter(ips.user==str(user)).distinct()))
 
 def tree_user(user):
     list_user=[]
-    uniq_user=killtuple(Session.query(ips.user).distinct())
+    uniq_user=killtuple(sqlsess.query(ips.user).distinct())
     if user in uniq_user:
-        iplist = killtuple(Session.query(ips.ip).order_by(ips.ip).filter(ips.user==str(user)).distinct())
+        iplist = killtuple(sqlsess.query(ips.ip).order_by(ips.ip).filter(ips.user==str(user)).distinct())
         for ip in iplist:
-            list_user.append([ip,killtuple(Session.query(ips.user).order_by(ips.user).filter(ips.ip==str(ip)).distinct())])
+            list_user.append([ip,killtuple(sqlsess.query(ips.user).order_by(ips.user).filter(ips.ip==str(ip)).distinct())])
         return list_user
     else:
         return 'nope'
@@ -70,7 +70,7 @@ app=Flask(__name__)
 if debug == 1:
     app.debug=True
 
-#date=Session.query(ips.dtime).filter(ips.ip==a[0]).order_by(-ips.pk).limit(1).scalar()
+#date=sqlsess.query(ips.dtime).filter(ips.ip==a[0]).order_by(-ips.pk).limit(1).scalar()
 #date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
 #date=date.strftime('%Y-%m-%d %H:%M:%S')
 #
@@ -87,21 +87,21 @@ def list_test(time):
     deltime=[]
     if time == 'week':
         lastweek=datetime.today()-timedelta(7)
-        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
+        uniq_ips=sqlsess.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     elif time == 'all':
-        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
+        uniq_ips=sqlsess.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
     elif time == '30day':
         lastweek=datetime.today()-timedelta(30)
-        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
+        uniq_ips=sqlsess.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     elif time == '24hr':
         lastweek=datetime.today()-timedelta(1)
-        uniq_ips=Session.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
+        uniq_ips=sqlsess.query(ips.ip,func.count(ips.ip).label('total')).group_by(ips.ip).order_by('total DESC').filter(ips.dtime >= lastweek).limit(int(total_ip)).all()
     else:
         return render_template('404.html'),404
 
     for ip in uniq_ips:
-        users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
-        date=Session.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
+        users = sqlsess.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip[0])).group_by(ips.user).order_by('total DESC').limit(user_cnt).all()
+        date=sqlsess.query(ips.dtime).filter(ips.ip==ip[0]).order_by(-ips.pk).limit(1).scalar()
         date=datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S')
         date=date.strftime('%Y-%m-%d %H:%M:%S')
         #ip.append(date)
@@ -109,34 +109,35 @@ def list_test(time):
         deltime.append(date)
         for user in users:
             userlist.append((ip,user[0],user[1]))
-    alldns=Session.query(rdns).all()
+    alldns=sqlsess.query(rdns).all()
     newest=max(deltime)
     return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
 
 @app.route('/ssh_rank/users/<sort>')
 def all_user(sort):
     if sort == 'letter':
-        users=killtuple(Session.query(ips.user).order_by(ips.user).distinct())
+        users=killtuple(sqlsess.query(ips.user).order_by(ips.user).distinct())
         return render_template('all_users.html',users=users, subhead='userlist')
     elif sort == 'attempts':
-        users=[(user,total) for user, total in Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all() if total > 1]
+        users=[(user,total) for user, total in sqlsess.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all() if total > 1]
         return render_template('users_sort_by_total.html',subhead='userlist',users=users)
     else:
         return render_template('404.html'),404
 
 @app.route('/ssh_rank/ip_info/<ip>')
 def ip_info(ip):
-    iplist=Session.query(ips.ip).distinct().all()
+    iplist=sqlsess.query(ips.ip).distinct().all()
     if any(b[0] == ip for b in iplist):
-        users = Session.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
-        dates=killtuple(Session.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
-        #nmapstuff= Session.query(nmapSQL).filter(nmapSQL.ip==str(ip)).all()
-        nmapstuff= Session.query(nmapSQL.dtime,nmapSQL.portnum,nmapSQL.state,nmapSQL.proto,nmapSQL.service,nmapSQL.verinfo).filter(nmapSQL.ip==str(ip)).all()
+        users = sqlsess.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
+        dates=killtuple(sqlsess.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
+        rdns_res=sqlsess.query(nmapSQL).filter(nmapSQL.ip==str(ip)).all()
+        #nmapstuff=sqlsess.query(rdns).filter(rdns.ip==str(ip)).all()
+        nmapstuff= sqlsess.query(nmapSQL.dtime,nmapSQL.portnum,nmapSQL.state,nmapSQL.proto,nmapSQL.service,nmapSQL.verinfo).filter(nmapSQL.ip==str(ip)).all()
         if nmapstuff == []:
             hasnmap=False
         else:
             hasnmap=True
-        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff)
+        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff, rdns_res=rdns_res)
     else:
         return render_template('404.html'),404
 
@@ -155,9 +156,9 @@ def nmapout(nfile):
 
 @app.route('/ssh_rank/user/<user>')
 def userpage(user):
-    users = killtuple(Session.query(ips.user).distinct())
+    users = killtuple(sqlsess.query(ips.user).distinct())
     if str(user) in users:
-        other_ips=killtuple(Session.query(ips.ip).filter(ips.user==str(user)).distinct())
+        other_ips=killtuple(sqlsess.query(ips.ip).filter(ips.user==str(user)).distinct())
         return render_template('user_info.html',subhead='users',user=user, other_ips=other_ips)
     else:
         return render_template('404.html'),404
@@ -188,7 +189,7 @@ def tree(ttype,thing):
 
 @app.route('/ssh_rank/user2p')
 def userp2p():
-    users=Session.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all()
+    users=sqlsess.query(ips.user,func.count(ips.user).label('total')).group_by(ips.user).order_by('total DESC').all()
     users2=[user for user, total in users if total > 2]
     users3=[(userblarg,getlen(userblarg)) for userblarg in users2 if getlen(userblarg) >2]
     users3.sort(key=lambda tup: tup[1],reverse=True)

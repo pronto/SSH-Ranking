@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python2.7
 import sys,os,pwd,argparse,gzip,time
 from datetime import datetime
 from multiprocessing import Process
@@ -27,7 +27,7 @@ arg=argparse.ArgumentParser()
 arg.add_argument('-f', action='store', dest='firstrun', default='off', help='set "first run" to on (default off), do: -f on')
 arg.add_argument('-w', action='store', dest='watch', default='off', help='set "start watching" to on (default off), do: -w on')
 arg.add_argument('-r', action='store', dest='resume', default='off', help='if you\'ve already done -f and -w, and some reason stopped it, use -r on to have it resume. note: probably won\'t work if log rotate went')
-year="2013"
+year="2014"
 
 
 print pwd.getpwuid(os.getuid())[0]
@@ -52,8 +52,8 @@ def datafromline(line,year):
 
 def insertsql(i):
     user=ips(i[0],i[1],i[2])
-    Session.add(user)
-    Session.commit()
+    sqlsess.add(user)
+    sqlsess.commit()
 
 def openfile(logfile):
     if 'gz' in logfile:
@@ -104,7 +104,7 @@ if argres.firstrun == "on":
 
 if argres.resume == 'on':
     print "Resuming from last:"
-    last=Session.query(ips).order_by(ips.pk.desc()).first() 
+    last=sqlsess.query(ips).order_by(ips.pk.desc()).first() 
     print "\tlast entry is:" +str(last)
     print "\t "+str(last.dtime)
     for line in openfile(logpath+logname):

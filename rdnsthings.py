@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python2.7
 #this.
 #this will do the rdns look up+store
 #might look into making htis a class or something?that'd be neat
