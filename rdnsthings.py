@@ -46,8 +46,8 @@ def ipcheck(ip,dns):
 
 def insertsql_dns(i):
     rd=rdns(i[0],i[1],i[2],i[3])
-    Session.add(rd)
-    Session.commit()
+    sqlsess.add(rd)
+    sqlsess.commit()
 
 def rdns_into_db(ip,run):
     #run is either 'first' or the rdns
@@ -78,15 +78,15 @@ def rdns_into_db(ip,run):
 #                   thre is rdns, check the IP of the name to see if its the same as IP
 
 
-#data = Session.query(ips).order_by(-ips.pk).limit(stats_ip).all()
-data = Session.query(ips.ip,ips.dtime,func.count(ips.ip).\
+#data = sqlsess.query(ips).order_by(-ips.pk).limit(stats_ip).all()
+data = sqlsess.query(ips.ip,ips.dtime,func.count(ips.ip).\
         label('total')).group_by(ips.ip).order_by('total DESC').limit(int(total_ip)).all()
 for line in data:
     print "================== "+line.ip +" start of FOR LOOP==========================="
     #x.execute("""SELECT * FROM rdns_tbl WHERE ip='%s'""" % a[0])
     #rdns_data=x.fetchall()
     #
-    rdns_data=Session.query(rdns).order_by(-rdns.pk).filter(rdns.ip==line.ip).limit(1).scalar()
+    rdns_data=sqlsess.query(rdns).order_by(-rdns.pk).filter(rdns.ip==line.ip).limit(1).scalar()
     print rdns_data
     #if list is empty lets do some things!
     if not rdns_data:

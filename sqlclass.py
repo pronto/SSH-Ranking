@@ -17,20 +17,11 @@ sqlpass = config.get('sql', 'sqlpass')
 
 Base = declarative_base()
 query_string = sqlservertype + '://' + sqluser + ':' + sqlpass + '@' + sqlserver
-eng = sqlalchemy.create_engine(query_string,  pool_recycle=36)
+eng = sqlalchemy.create_engine(query_string)
 eng.execute("USE db_sshrank")
 eng.execute("select 1").scalar()
-
 Session =sqlalchemy.orm.sessionmaker(bind=eng)
 sqlsess = Session()
-
-def resession():
-    sqlsess.close()
-    del(sqlsess)
-    Session = sqlalchemy.orm.sessionmaker(bind=eng)
-    sqlsess=Session()
-    return sqlsess
-
 class ips(Base):
     __tablename__ = 'ips_alc2'
     ip = Column(VARCHAR(39))

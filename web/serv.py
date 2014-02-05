@@ -126,7 +126,9 @@ def all_user(sort):
 
 @app.route('/ssh_rank/ip_info/<ip>')
 def ip_info(ip):
+    sqlsess.commit()#needs to be here; or the nmapSQL won't update...
     iplist=sqlsess.query(ips.ip).distinct().all()
+    nmapstuff = 'wut'
     if any(b[0] == ip for b in iplist):
         users = sqlsess.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
         dates=killtuple(sqlsess.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
@@ -140,6 +142,13 @@ def ip_info(ip):
         return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff, rdns_res=rdns_res)
     else:
         return render_template('404.html'),404
+
+@app.route('/ssh_rank/port/<num>')
+def port_search(num):
+    if 1 <= int(num) <= 65535:
+        sqlsess.commit()
+        ports=sqlsess.query(nmapSQL).filter(nmapSQL.portnum==int(num))
+        return render_template('port_search.html', subhead='port search', ports=ports)
 
 @app.route('/ssh_rank/nmap_out/<nfile>')
 def nmapout(nfile):

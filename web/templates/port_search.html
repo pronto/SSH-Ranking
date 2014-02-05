@@ -1,0 +1,15 @@
+{% include 'header.html' %}
+    <font color=gray>
+    <table border="1" width=100%>
+        <tr><th>ip</th><th>time</th><th>port#</th><th>state</th><th>proto</th><th>service</th><th>verinfo</th></tr>
+    {% for port in ports -%}
+    <tr><td><a href="/ssh_rank/ip_info/{{port.ip}}">{{port.ip}}</a></td>
+    <td>{{port.dtime}}</td><td>{{port.portnum}}</td><td>
+        {% if port.state == "open" -%}<b><font color=green>{% endif %} 
+        {{port.state}}</td>
+    <td>{{port.proto}}</td><td>{{port.service}}</td><td>{{port.verinfo}}</td> 
+    </tr>
+    {% endfor -%}
+    </table>
+</font>
+{% include 'footer.html' %}

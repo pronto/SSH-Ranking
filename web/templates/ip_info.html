@@ -20,6 +20,11 @@ year:mon<br>
 
 <div id="content">
     <p><a href="/ssh_rank/tree/ip/{{ip}}">Tree view for {{ ip }}</a></p>
+    <p>RDNS: 
+    {% if rdns_res == [] -%}
+    not checked
+    {% else -%}
+    <b>{{rdns_res[0].rdns}}{% endif -%}</b></p>
     {% if hasnmap == True -%}
     <p> nmap scans: </p>
     <font color=gray>
@@ -27,7 +32,9 @@ year:mon<br>
     <tr><th>time</th><th>port#</th><th>state</th><th>proto</th><th>service</th><th>verinfo</th></tr>
     {% for port in nmapstuff -%}
     <tr>
-    <td>{{port.dtime}}</td><td>{{port.portnum}}</td><td>{{port.state}}</td>
+        <td>{{port.dtime}}</td><td><a href="/ssh_rank/port/{{port.portnum}}">{{port.portnum}}</a></td><td>
+        {% if port.state == "open" -%}<b><font color=green>{% endif %} 
+        {{port.state}}</td>
     <td>{{port.proto}}</td><td>{{port.service}}</td><td>{{port.verinfo}}</td> 
     </tr>
     {% endfor -%}
