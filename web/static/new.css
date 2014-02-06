@@ -176,7 +176,12 @@ pre {
     }
     #roundbar-grey ul li a:hover {
     }
- 
+    #roundbar-grey ul li.test {
+        color #999;
+        line-height=0.9em;
+        border-bottom:0px;
+        font-size:13px;
+    }
 
 
     /* crap for tables? */

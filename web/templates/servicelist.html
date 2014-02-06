@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+
+<br><center>
+<pre>
+{% for serv in servlist -%}
+<a href="/ssh_rank/service/{{serv[0]}}">{{serv[0]}}</a>:{{serv[1]}}
+{% endfor %}
+</pre>
+
+{% include 'footer.html' %}

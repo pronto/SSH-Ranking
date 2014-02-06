@@ -1,0 +1,11 @@
+{% include 'header.html' %}
+
+port#,count
+<br>
+
+{% for port in ports %}
+<a href="/ssh_rank/port/{{port[0]}}">{{port[0]}}</a>:[{{port[1]}}],
+{% endfor %}
+
+
+{% include 'footer.html' %}

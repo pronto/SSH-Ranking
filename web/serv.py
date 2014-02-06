@@ -132,7 +132,7 @@ def ip_info(ip):
     if any(b[0] == ip for b in iplist):
         users = sqlsess.query(ips.user,func.count(ips.user).label('total')).filter(ips.ip==str(ip)).group_by(ips.user).order_by('total DESC').all()
         dates=killtuple(sqlsess.query(ips.dtime).filter(ips.ip==str(ip)).order_by(ips.dtime).all())
-        rdns_res=sqlsess.query(nmapSQL).filter(nmapSQL.ip==str(ip)).all()
+        rdns_res=sqlsess.query(rdns).filter(rdns.ip==str(ip)).all()
         #nmapstuff=sqlsess.query(rdns).filter(rdns.ip==str(ip)).all()
         nmapstuff= sqlsess.query(nmapSQL.dtime,nmapSQL.portnum,nmapSQL.state,nmapSQL.proto,nmapSQL.service,nmapSQL.verinfo).filter(nmapSQL.ip==str(ip)).all()
         if nmapstuff == []:
@@ -145,21 +145,42 @@ def ip_info(ip):
 
 @app.route('/ssh_rank/port/<num>')
 def port_search(num):
+    try:
+        int(num)
+    except ValueError:
+        return render_template('404.html'),404
     if 1 <= int(num) <= 65535:
         sqlsess.commit()
+        otherports=sqlsess.query(nmapSQL.portnum).distinct().all()
         ports=sqlsess.query(nmapSQL).filter(nmapSQL.portnum==int(num))
-        return render_template('port_search.html', subhead='port search', ports=ports)
+        return render_template('port_search.html', subhead='port search', ports=ports, num=num, otherports=otherports)
+    else:
+        return render_template('404.html'),404
 
-@app.route('/ssh_rank/nmap_out/<nfile>')
-def nmapout(nfile):
-    #shows the output of the nmal xml all formatted nicely and stuff
-    #list/link to other nmap files for the same IP
-    nmapfiles=find_nmap_xml('all')
-    if nfile in nmapfiles:
-        showxml=str(open(nmap_xml_path+nfile).readlines())
-        xmlfile="xml/"+nfile
-        return render_template('nmapout.html',subhead='nmap outputs',xmlfile=xmlfile, showxml=showxml)
-        #dothings
+@app.route('/ssh_rank/port_list')
+def port_list():
+    #ports=killtuple(sqlsess.query(nmapSQL.portnum).distinct().all())
+    ports=sqlsess.query(nmapSQL.portnum,func.count(nmapSQL.portnum).label('total')).group_by(nmapSQL.portnum).order_by('total DESC').all()
+    return render_template('portlist.html', subhead='port listing', ports=ports)
+
+@app.route('/ssh_rank/service_list')
+def serv_list():
+    servlist=sqlsess.query(nmapSQL.service,func.count(nmapSQL.service).label('total')).group_by(nmapSQL.service).order_by('total DESC').all()
+    return render_template('servicelist.html',subhead='service listing', servlist=servlist)
+
+
+@app.route('/ssh_rank/nmapIPs')
+def nmapIPs():
+    nmapips=killtuple(sqlsess.query(nmapSQL.ip).distinct().all())
+    nmapips.sort()
+    return render_template('nmapips.html',subhead='IPs nmap', nmapips=nmapips)
+
+@app.route('/ssh_rank/service/<service>')
+def servpage(service):
+    services=killtuple(sqlsess.query(nmapSQL.service).all())
+    if str(service) in services:
+        servlist=sqlsess.query(nmapSQL).filter(nmapSQL.service==str(service)).all()
+        return render_template('port_search.html', subhead='service search', ports=servlist, num=str(service), otherports=services)
     else:
         return render_template('404.html'),404
 

@@ -1,0 +1,9 @@
+{% include 'header.html' %}
+
+<?xml-stylesheet href="/static/nmap.xsl" type="text/xsl"?>
+{{ url_for('static', filename=xmlfile) }}
+{% autoescape False %}
+{{ showxml }}
+{% endautoescape %}
+
+{% include 'footer.html' %}

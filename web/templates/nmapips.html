@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+
+<br><center>
+{% for ip in nmapips -%}
+<a href="/ssh_rank/ip_info/{{ip}}">{{ip}}</a>, 
+
+
+{% endfor %}
+
+{% include 'footer.html' %}
