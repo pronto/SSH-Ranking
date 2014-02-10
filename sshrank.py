@@ -120,7 +120,7 @@ if argres.watch == "on":
     loglines=follow(logpath+logname)
     for line in loglines:
         if "Failed password for invalid user" in line:
-            print line
+            #print line
             data=datafromline(line,year)
             print str(data)
             #Process(target=insertsql,args=(data,)).start()
