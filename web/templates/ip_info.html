@@ -28,19 +28,28 @@ year:mon<br>
     {% if hasnmap == True -%}
     <p> nmap scans: </p>
     <font color=gray>
-    <table border="1" width=100%>
+    <table border="1" width=100% class="gridtable">
     <tr><th>time</th><th>port#</th><th>state</th><th>proto</th><th>service</th><th>verinfo</th></tr>
+
+    {% set tableid=cycler('table2','table1') %}
     {% for port in nmapstuff -%}
+    <tbody id="{{tableid.next()}}">
     <tr>
         <td>{{port.dtime}}</td><td><a href="/ssh_rank/port/{{port.portnum}}">{{port.portnum}}</a></td><td>
         {% if port.state == "open" -%}<b><font color=green>{% endif %} 
         {{port.state}}</td>
-    <td>{{port.proto}}</td><td>{{port.service}}</td><td>{{port.verinfo}}</td> 
+    <td>{{port.proto}}</td><td><a href="/ssh_rank/service/{{port.service}}">{{port.service}}</a></td><td>{{port.verinfo}}</td> 
     </tr>
     {% endfor -%}
+    </tbody>
     </table>
 </font>
-    {% endif -%}    
+    {% endif -%}
+    {% if screenshots != False-%}
+    {% for screen in screenshots -%}
+    <a href="/static/screens/{{screen}}"><img src="/static/screens/thumbs/{{screen}}"></a>
+    {% endfor -%}
+    {% endif -%}
     <p>Attempted users: </p>
 <pre>
 {% for user in users-%} 

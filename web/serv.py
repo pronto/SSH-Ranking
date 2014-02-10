@@ -4,6 +4,8 @@ import socket,os,sys
 from datetime import datetime,timedelta
 from datetime import date as ddate
 from ConfigParser import SafeConfigParser
+import glob
+
 par = SafeConfigParser()
 #will be /etc/ssh-rank.ini or where ever you want it
 par.read(os.getcwd()+"/config.ini")
@@ -14,6 +16,7 @@ debug=par.get("sshrank","debugging")
 webUI_port=par.get("web","webUI_port")
 nmap_xml_path=par.get("web","nmap_xml")
 sqlclassPath=par.get("sshrank","sqlclassPath")
+screenshotpath=par.get("sshrank","screenshotpath")
 sys.path.append(sqlclassPath)
 
 from sqlclass import *
@@ -82,6 +85,7 @@ def main():
 
 @app.route('/ssh_rank/lists/<time>')
 def list_test(time):
+    sqlsess.commit()
     userlist=[]
     datelist=[]
     deltime=[]
@@ -111,7 +115,8 @@ def list_test(time):
             userlist.append((ip,user[0],user[1]))
     alldns=sqlsess.query(rdns).all()
     newest=max(deltime)
-    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time)
+    nmapips=killtuple(sqlsess.query(nmapSQL.ip).distinct().all())
+    return render_template('page_for_listings_main.html',uniq_ips=uniq_ips,userlist=userlist,alldns=alldns,datelist=datelist,newest=newest,subhead=time,nmapips=nmapips)
 
 @app.route('/ssh_rank/users/<sort>')
 def all_user(sort):
@@ -137,9 +142,13 @@ def ip_info(ip):
         nmapstuff= sqlsess.query(nmapSQL.dtime,nmapSQL.portnum,nmapSQL.state,nmapSQL.proto,nmapSQL.service,nmapSQL.verinfo).filter(nmapSQL.ip==str(ip)).all()
         if nmapstuff == []:
             hasnmap=False
+            screenshots=False
         else:
             hasnmap=True
-        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff, rdns_res=rdns_res)
+            screenshots=[os.path.basename(x) for x in glob.glob(screenshotpath+ip+'*png')]
+            if len(screenshots) == 0:
+                screenshots=False
+        return render_template('ip_info.html',subhead='ipinfo', ip=ip,users=users, dates=dates,hasnmap=hasnmap,nmapstuff=nmapstuff, rdns_res=rdns_res,screenshots=screenshots)
     else:
         return render_template('404.html'),404
 
@@ -228,6 +237,12 @@ def userp2p():
 @app.route('/about')
 def about():
     return render_template('about.html',subhead='about')
+
+@app.route('/ssh_rank/screenshots')
+def screenshot():
+    screenshots=[os.path.basename(x) for x in glob.glob(screenshotpath+'*png')]
+    print screenshots
+    return render_template('screens.html',subhead='screens', screenshots=screenshots)
 
 @app.errorhandler(404)
 def page404(e):

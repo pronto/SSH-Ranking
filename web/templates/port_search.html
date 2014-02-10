@@ -1,8 +1,10 @@
 {% include 'header.html' %}
-    <font color=gray>
-    <table border="1" width=100%>
+    
+    <table class="gridtable" width=100%>
         <tr><th>ip</th><th>time</th><th>port#</th><th>state</th><th>proto</th><th>service</th><th>verinfo</th></tr>
+    {% set tableid=cycler('table2','table1') %}
     {% for port in ports -%}
+    <tbody id="{{tableid.next()}}">
     <tr><td><a href="/ssh_rank/ip_info/{{port.ip}}">{{port.ip}}</a></td>
     <td>{{port.dtime}}</td><td>{{port.portnum}}</td><td>
         {% if port.state == "open" -%}<b><font color=green>{% endif %} 
@@ -10,6 +12,10 @@
     <td>{{port.proto}}</td><td>{{port.service}}</td><td>{{port.verinfo}}</td> 
     </tr>
     {% endfor -%}
+    </tbody>
     </table>
+    <br><br>
+
+    other ports: {% for oport in otherports -%} <a href="/ssh_rank/port/{{oport[0]}}">{{oport[0]}}</a>, {% endfor -%}
 </font>
 {% include 'footer.html' %}

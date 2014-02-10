@@ -14,6 +14,9 @@
     <tr>
         <td><b><a href="/ssh_rank/ip_info/{{ ip[0]}}">{{ ip[0] }}</a>
                 | <a href="/ssh_rank/tree/ip/{{ ip[0] }}" title="Tree View" >(t)</a>
+                {% if ip[0] in nmapips -%}
+                | scanned
+                {% endif -%}
         </b> </td>
         <td><b>{{ip[1]}}</b></td>
         <td>      {% for res in alldns -%}

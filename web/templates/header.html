@@ -11,7 +11,7 @@
     <body>
         <div id="topLogoRight"><img src="{{ url_for('static', filename='logo.png') }}" height=100></div>
 
-        <div id="topLogo"><a target="_blank" href="http://en.wikipedia.org/wiki/Peter_Sellers#The_Millionairess.2C_Lolita.2C_The_Pink_Panther_and_divorce_.281960.E2.80.9363.29"><img src="{{ url_for('static', filename='Peter_Sellers.jpg') }}" height=100></a></div>
+        <div id="topLogo"><a target="_blank" href="/"><img src="{{ url_for('static', filename='Peter_Sellers.jpg') }}" height=100></a></div>
         <h1>SSH Ranking!</h1>
         <h2>
 {% if subhead == 'all' -%}
@@ -38,8 +38,18 @@ Tree list for {{ ip }}{{ user}}
 users with 2+ IP's
 {% elif subhead == 'port search' -%}
 port search: {{num}}
+{% elif subhead == 'service search' -%}
+service search: {{num}}
+{% elif subhead == 'service listing' -%}
+List of all services
+{% elif subhead == 'port listing' -%}
+List of all ports
+{% elif subhead == 'IPs nmap' -%}
+List of IPs with nmap scans
+{% elif subhead == 'screens' -%}
+Screenshots of HTTP
 {% else -%}
-404'd
+404'd | {{subhead}}
 {% endif %}
 </h2>
 
@@ -56,5 +66,14 @@ port search: {{num}}
         <li class="active"><a href="https://github.com/pronto/SSH-Ranking" target="_blank">GitHub Repo}</a></li>
     </ul>
 </div>
+<div id="roundbar-grey">
+    <ul>
+        <li class="test"><a href="/ssh_rank/service_list">Service listing</a></li>
+        <li class="test"><a href="/ssh_rank/port_list">Port listing</a></li>
+        <li class="test"><a href="/ssh_rank/nmapIPs">Scanned IPs</a></li>
+        <li class="test"><a href="/ssh_rank/screenshots">Screenshots of HTTP</a></li>
+    </ul>
+</div>
+
 <div id="box">
     <p id='noticebox' align=center>notice: <a href="https://duckduckgo.com/tty/#q=celery">Celery</a> is tasty.</p>

@@ -1,0 +1,9 @@
+{% include 'header.html' %}
+{% for screen in screenshots -%}
+<a href="/static/screens/{{screen}}">
+    <img src="/static/screens/thumbs/{{screen}}">
+</a>
+{% endfor -%}
+{% include 'footer.html' %}
+
+
