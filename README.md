@@ -3,7 +3,7 @@ SSH-Ranking
 
 SSH Ranking system! (re-write of ssh-fail-watcher)
 
-Demo of the webUI (when working) at: http://vps3.pronto185.com
+Demo of the webUI (when working) at: https://sshrank.in/g/lists/24hr
 
 Project website: https://github.com/pronto/SSH-Ranking
 
